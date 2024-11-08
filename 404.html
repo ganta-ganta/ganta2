@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Ganta Solutions</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #000; /* Black background */
+      color: #FFD700; /* Gold text color */
+      text-align: center;
+      flex-direction: column;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #FFD700; /* Gold color */
+      margin-bottom: 20px;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 600px;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 8rem;
+      color: #FFD700; /* Gold color */
+      position: relative;
+      animation: shake 0.3s infinite;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      color: #FFD700;
+    }
+
+    .home-btn {
+      text-decoration: none;
+      color: #000;
+      background-color: #FFD700; /* Gold background color */
+      padding: 12px 25px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .home-btn:hover {
+      background-color: #DAA520; /* Darker gold on hover */
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Logo at the top -->
+  <a href="/" class="logo">Ganta Solutions</a>
+
+  <div class="container">
+    <h1 id="error-number">404</h1>
+    <h2>Oops! Page Not Found</h2>
+    <p>We couldn't find the page you were looking for. It might have been moved or deleted.</p>
+    <a href="/" class="home-btn">Go Back to Home</a>
+  </div>
+
+  <script>
+    // Adding a small interactive effect
+    document.getElementById("error-number").addEventListener("mouseover", function() {
+      this.style.color = "#DAA520"; // Darker gold on hover
+    });
+
+    document.getElementById("error-number").addEventListener("mouseout", function() {
+      this.style.color = "#FFD700"; // Return to gold
+    });
+  </script>
+</body>
+</html>

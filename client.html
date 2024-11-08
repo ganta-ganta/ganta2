@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Satisfaction | Ganta Solutions</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .header {
+            background-color: #333;
+            color: #FFD700;
+            padding: 2rem 0;
+        }
+        .header h2 {
+            color: #FFD700;
+        }
+        .testimonial-card {
+            border: 1px solid #FFD700;
+            background-color: #333;
+            color: #FFD700;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .icon {
+            font-size: 3rem;
+            color: #FFD700;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header text-center">
+    <h2>Client Satisfaction</h2>
+    <p>We value our clients and strive to deliver the highest quality services.</p>
+</header>
+
+<!-- Main Content -->
+<div class="container my-5">
+    <div class="row">
+        <!-- Satisfaction Rating -->
+        <div class="col-lg-4 col-md-6 text-center mb-4">
+            <div class="p-4">
+                <i class="bi bi-emoji-smile icon"></i>
+                <h4>Satisfaction Rate</h4>
+                <p>Our clients report a 95% satisfaction rate with our services.</p>
+            </div>
+        </div>
+
+        <!-- Testimonials -->
+        <div class="col-lg-8">
+            <h3 class="text-center mb-4">What Our Clients Say</h3>
+
+            <div class="testimonial-card">
+                <p class="mb-2">"Ganta Solutions transformed our business presence. The team is highly professional and dedicated."</p>
+                <h6 class="mb-0">- Client A, Small Hotel Owner</h6>
+            </div>
+
+            <div class="testimonial-card">
+                <p class="mb-2">"Our digital marketing results improved significantly. Highly recommend their services!"</p>
+                <h6 class="mb-0">- Client B, Car Rentals</h6>
+            </div>
+
+            <div class="testimonial-card">
+                <p class="mb-2">"Excellent customer support and consistent results. We couldn’t be happier!"</p>
+                <h6 class="mb-0">- Client C, Restaurant Owner</h6>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback Form -->
+    <div class="row mt-5">
+        <h3 class="text-center mb-4">Share Your Feedback</h3>
+        <div class="col-lg-8 offset-lg-2">
+            <form id="feedbackForm">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Your Name</label>
+                    <input type="text" class="form-control" id="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Your Email</label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="rating" class="form-label">Rating</label>
+                    <select class="form-select" id="rating" required>
+                        <option value="" selected disabled>Choose a rating</option>
+                        <option value="5">Excellent</option>
+                        <option value="4">Very Good</option>
+                        <option value="3">Good</option>
+                        <option value="2">Fair</option>
+                        <option value="1">Poor</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Your Feedback</label>
+                    <textarea class="form-control" id="message" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Feedback</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Simple JavaScript for feedback form submission
+    document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        alert('Thank you for your feedback!');
+    });
+</script>
+</body>
+</html>

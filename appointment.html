@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule an Appointment - Ganta Solutions</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link href="ganta/style.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <a class="navbar-brand" href="index.html">
+            <img src="gantasolutions.png" width="30" height="30" alt="Logo">
+            Ganta Solutions
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#appointment">Appointment</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#contact">Contact</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="service.html">Service</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      
+
+<div class="container">
+    <div class="text-center mb-4">
+        <h2>Schedule an Appointment with Ganta Solutions</h2>
+        <p>We’re here to help your business thrive. Book a consultation to discuss your goals.</p>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card p-4">
+                <form id="appointmentForm">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Your Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Your Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="date" class="form-label">Preferred Appointment Date</label>
+                        <input type="date" class="form-control" id="date" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="time" class="form-label">Preferred Appointment Time</label>
+                        <input type="time" class="form-control" id="time" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Additional Information</label>
+                        <textarea class="form-control" id="message" rows="4" placeholder="Provide any additional details..." required></textarea>
+                    </div>
+                    <button type="button" class="btn btn-whatsapp w-100" onclick="submitViaWhatsApp()">Submit via WhatsApp</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<footer id="footer" class="footer dark-background">
+    <div class="container">
+      <div class="row gy-3">
+        
+        
+        <!-- Contact Section -->
+        <div class="col-lg-3 col-md-6 d-flex">
+          <i class="bi bi-telephone icon"></i>
+          <div>
+            <h4>Contact</h4>
+            <p>
+              <strong>Phone:</strong> <span>7993564948</span><br>
+              <strong>Email:</strong> <span>gantasolutions@gmail.com</span><br>
+            </p>
+          </div>
+        </div>
+  
+        
+  
+        <!-- Social Media Section -->
+        <div class="col-lg-3 col-md-6">
+          <h4>Follow Us</h4>
+          <div class="social-links d-flex">
+            <a href="https://www.instagram.com/ganta_solutions?igsh=MWxsbjI1MDBtcnllcw==" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="https://www.instagram.com/ganta_solutions?igsh=MWxsbjI1MDBtcnllcw==" class="facebook"><i class="bi bi-facebook"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <h5><i class="bi bi-link icon"></i> Useful Links</h5>
+          <ul class="footer-links list-unstyled">
+              <li><a href="get-start.html"><i class="bi bi-globe icon"></i>Get-Start</a></li>
+              <li><a href="selection.html"><i class="bi bi-bar-chart-line icon"></i> Digital Marketing</a></li>
+              <li><a href="selection.html"><i class="bi bi-briefcase icon"></i> Business Development</a></li>
+              <li><a href="selection.html"><i class="bi bi-palette icon"></i> Branding</a></li>
+          </ul>
+      </div>
+      <!-- Appointment Section -->
+      <div class="col-lg-3 col-md-6">
+        <h5><i class="bi bi-calendar-check icon"></i> Appointment</h5>
+        <p>Schedule a consultation to discuss your needs and goals.</p>
+        <a href="appointment.html" class="footer-links"><i class="bi bi-calendar2-plus icon"></i> Book Now</a>
+    </div>
+  
+      </div>
+    </div>
+  
+    <!-- Footer Bottom -->
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">Ganta solutions</strong> <span>All Rights Reserved</span></p>
+      <div class="credits">
+        Developed by <a href="https://gantasolutions.com">GANTA</a>
+      </div>
+    </div>
+  </footer>
+
+<script>
+    function submitViaWhatsApp() {
+        // Get form values
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const date = document.getElementById('date').value;
+        const time = document.getElementById('time').value;
+        const message = document.getElementById('message').value;
+
+        // WhatsApp number for Ganta Solutions (replace with your own)
+        const whatsappNumber = '7993564948'; // Example: 7993564948
+
+        // Construct WhatsApp message
+        const whatsappMessage = `Hello, I would like to schedule an appointment.\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nDate: ${date}\nTime: ${time}\nMessage: ${message}`;
+
+        // Open WhatsApp with pre-filled message
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+        window.open(whatsappUrl, '_blank');
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

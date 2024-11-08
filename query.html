@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query - Ganta Solutions</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="ganta/style.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+   
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <a class="navbar-brand" href="index.html">
+            <img src="gantasolutions.png" width="30" height="30" alt="Logo">
+            Ganta Solutions
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="appointment.html">Appointment</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#contact">Contact</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="service.html">Service</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      
+
+    <div class="container mt-5">
+        <h2 class="text-center">Submit Your Query</h2>
+
+        <!-- Service Selection Section -->
+        <div class="card">
+            <h3 id="service-title" class="text-center"></h3>
+            <form id="query-form">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Your Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Your Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Your Message</label>
+                    <textarea class="form-control" id="message" rows="4" placeholder="Enter your message here"></textarea>
+                </div>
+                <!--<div class="text-center">
+                    <button type="submit" class="btn btn-primary">Submit Query</button>
+                </div>-->
+            </form>
+        </div>
+
+        <!-- WhatsApp Button -->
+        <div class="text-center mt-4">
+            <a id="whatsapp-link" class="btn btn-whatsapp">
+                <i class="fab fa-whatsapp"></i> Query via WhatsApp
+            </a>
+        </div>
+    </div>
+    <footer id="footer" class="footer dark-background">
+        <div class="container">
+          <div class="row gy-3">
+            
+            
+            <!-- Contact Section -->
+            <div class="col-lg-3 col-md-6 d-flex">
+              <i class="bi bi-telephone icon"></i>
+              <div>
+                <h4>Contact</h4>
+                <p>
+                  <strong>Phone:</strong> <span>7993564948</span><br>
+                  <strong>Email:</strong> <span>gantasolutions@gmail.com</span><br>
+                </p>
+              </div>
+            </div>
+      
+            
+      
+            <!-- Social Media Section -->
+            <div class="col-lg-3 col-md-6">
+              <h4>Follow Us</h4>
+              <div class="social-links d-flex">
+                <a href="https://www.instagram.com/ganta_solutions?igsh=MWxsbjI1MDBtcnllcw==" class="instagram"><i class="bi bi-instagram"></i></a>
+                <a href="https://www.instagram.com/ganta_solutions?igsh=MWxsbjI1MDBtcnllcw==" class="facebook"><i class="bi bi-facebook"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <h5><i class="bi bi-link icon"></i> Useful Links</h5>
+              <ul class="footer-links list-unstyled">
+                  <li><a href="get-start.html"><i class="bi bi-globe icon"></i>Get-Start</a></li>
+                  <li><a href="selection.html"><i class="bi bi-bar-chart-line icon"></i> Digital Marketing</a></li>
+                  <li><a href="selection.html"><i class="bi bi-briefcase icon"></i> Business Development</a></li>
+                  <li><a href="selection.html"><i class="bi bi-palette icon"></i> Branding</a></li>
+              </ul>
+          </div>
+          <!-- Appointment Section -->
+          <div class="col-lg-3 col-md-6">
+            <h5><i class="bi bi-calendar-check icon"></i> Appointment</h5>
+            <p>Schedule a consultation to discuss your needs and goals.</p>
+            <a href="appointment.html" class="footer-links"><i class="bi bi-calendar2-plus icon"></i> Book Now</a>
+        </div>
+      
+          </div>
+        </div>
+      
+        <!-- Footer Bottom -->
+        <div class="container copyright text-center mt-4">
+          <p>© <span>Copyright</span> <strong class="px-1 sitename">Ganta solutions</strong> <span>All Rights Reserved</span></p>
+          <div class="credits">
+            Developed by <a href="https://gantasolutions.com">GANTA</a>
+          </div>
+        </div>
+      </footer>
+
+    <script>
+        // WhatsApp number for Ganta Solutions
+        const whatsappNumber = "7993564948";
+
+        // Get the service parameter from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedService = urlParams.get('service');
+
+        // Pricing data for each service
+        const pricingData = {
+            "Small Hotels": {
+                Basic: "25,000",
+                Standard: "88,000",
+                Premium: "1,77,000"
+            },
+            "Short Term Rentals": {
+                Basic: "14,000",
+                Standard: "70,000",
+                Premium: "1,10,000"
+            },
+            "Car Rentals": {
+                Basic: "20,000",
+                Standard: "60,000",
+                Premium: "1,30,000"
+            },
+            "Hotels": {
+                Basic: "25,000",
+                Standard: "72,000",
+                Premium: "$1,25,000"
+            },
+            "Resorts": {
+                Basic: "17,000",
+                Standard: "60,000",
+                Premium: "1,55,000"
+            },
+            "Property Management": {
+                Basic: "16,000",
+                Standard: "$66,000",
+                Premium: "1,55,000"
+            },
+            "Serviced Apartments": {
+                Basic: "$25000",
+                Standard: "75,000",
+                Premium: "1,41,000"
+            },
+            "Restaurants": {
+                Basic: "22,000",
+                Standard: "84,000",
+                Premium: "1,50,000"
+            },
+            "Lower Real Estate": {
+                Basic: "13,000",
+                Standard: "66,000",
+                Premium: "99,000"
+            }
+        };
+
+        // Display the selected service title
+        const serviceTitle = document.getElementById('service-title');
+        const whatsappLink = document.getElementById('whatsapp-link');
+
+        if (selectedService && pricingData[selectedService]) {
+            serviceTitle.textContent = `${selectedService} Query`;
+
+            // Create WhatsApp message with service details
+            const serviceDetails = pricingData[selectedService];
+            const whatsappMessage = `Hello, I would like to know more about the pricing for ${selectedService}:\n` +
+                                    `Basic Plan: ${serviceDetails.Basic}\n` +
+                                    `Standard Plan: ${serviceDetails.Standard}\n` +
+                                    `Premium Plan: ${serviceDetails.Premium}`;
+            whatsappLink.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+        } else {
+            serviceTitle.textContent = "Service Not Found";
+            whatsappLink.style.display = "none"; // Hide WhatsApp button if service is invalid
+        }
+
+        // Handle form submission (you can add an actual backend for form submission)
+        const queryForm = document.getElementById('query-form');
+        queryForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            // You can implement actual form submission logic here (e.g., using AJAX)
+            alert(`Thank you, ${name}! We have received your query.\nYour Email: ${email}\nMessage: ${message}`);
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

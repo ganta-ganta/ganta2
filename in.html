@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Showcase - Ganta Solutions</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        /* Black and Gold Theme */
+        body {
+            background-color: #000;
+            color: #f1c40f; /* Gold */
+        }
+        .client-showcase {
+            background-color: #333; /* Dark Background */
+            padding: 4rem 0;
+        }
+        .client-logo {
+            max-width: 200px;
+            max-height: 100px;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+        .client-logo:hover {
+            transform: scale(1.1);
+        }
+        .testimonial {
+            background-color: #1a1a1a;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .testimonial p {
+            font-style: italic;
+            color: #f1c40f;
+        }
+        .testimonial h5 {
+            margin-top: 1rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        /* Header Section */
+        h2 {
+            color: #f1c40f;
+        }
+        .lead {
+            color: #ddd;
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Hidden Clients Section */
+        .hidden-clients {
+            display: none;
+        }
+        .coming-soon {
+            text-align: center;
+            font-style: italic;
+            color: #f1c40f;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #222;
+            color: #f1c40f;
+        }
+        footer .social-links a {
+            color: #f1c40f;
+            margin: 0 10px;
+            font-size: 1.5rem;
+        }
+        footer .social-links a:hover {
+            color: #fff;
+        }
+        footer .credits a {
+            color: #f1c40f;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Client Showcase Section -->
+<section class="client-showcase">
+    <div class="container text-center">
+        <h2 data-aos="fade-up" data-aos-duration="1000">Our Esteemed Clients</h2>
+        <p class="lead" data-aos="fade-up" data-aos-duration="1500">We take pride in working with some of the best in the industry. Here's a look at our valued clients:</p>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <!-- Client 1 -->
+            <div class="col" data-aos="zoom-in" data-aos-duration="1000">
+                <div class="card">
+                    <img src="https://via.placeholder.com/200x100?text=GoPanda" alt="GoPanda" class="card-img-top client-logo">
+                    <div class="card-body text-center">
+                        <h5 class="card-title" style="color: #f1c40f;">GoPanda Cars</h5>
+                        <p class="card-text" style="color: #ddd;">Self-Drive Car Rentals for an amazing travel experience.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Client 2 -->
+            <div class="col" data-aos="zoom-in" data-aos-duration="1200">
+                <div class="card">
+                    <img src="https://via.placeholder.com/200x100?text=Kiwin" alt="Kiwin" class="card-img-top client-logo">
+                    <div class="card-body text-center">
+                        <h5 class="card-title" style="color: #f1c40f;">Kiwin Water Bottles</h5>
+                        <p class="card-text" style="color: #ddd;">Eco-friendly water bottles for everyday hydration.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hidden Clients Section (Privacy Purposes) -->
+            <div class="hidden-clients">
+                <!-- Client 3 -->
+                <div class="col" data-aos="zoom-in" data-aos-duration="1400">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/200x100?text=Client+Logo" alt="Client" class="card-img-top client-logo">
+                        <div class="card-body text-center">
+                            <h5 class="card-title" style="color: #f1c40f;">Client 3</h5>
+                            <p class="card-text" style="color: #ddd;">Description of what this client does or what service was provided.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Client 4 -->
+                <div class="col" data-aos="zoom-in" data-aos-duration="1600">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/200x100?text=Client+Logo" alt="Client" class="card-img-top client-logo">
+                        <div class="card-body text-center">
+                            <h5 class="card-title" style="color: #f1c40f;">Client 4</h5>
+                            <p class="card-text" style="color: #ddd;">Description of what this client does or what service was provided.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- "Coming Soon" Section -->
+            <div class="coming-soon" data-aos="fade-up" data-aos-duration="2000">
+                <p>Two more clients are coming soon! Stay tuned for updates!</p>
+            </div>
+        </div>
+
+        <!-- Client Testimonials Section -->
+        <div class="row mt-5">
+            <div class="col-md-6" data-aos="fade-right" data-aos-duration="1000">
+                <div class="testimonial">
+                    <p>"Working with Ganta Solutions has been a fantastic experience. They helped us with digital marketing and website design, which significantly increased our visibility!"</p>
+                    <h5>-gopandacars.in</h5>
+                </div>
+            </div>
+            <div class="col-md-6" data-aos="fade-left" data-aos-duration="1000">
+                <div class="testimonial">
+                    <p>"The team at Ganta Solutions provided incredible service and delivered our website on time and within budget. Highly recommend them!"</p>
+                    <h5>-kiwin.in</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container text-center py-4">
+        <div class="social-links">
+            <a href="https://www.instagram.com/gopanda_cars" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.instagram.com/gopanda_cars" class="instagram"><i class="bi bi-instagram"></i></a>
+        </div>
+        <div class="credits mt-4">
+            <p>© Copyright <strong>Go Panda</strong> - All Rights Reserved</p>
+            <p>Developed by <a href="https://ramakrishnasaiganta.info/startup.html">GANTA</a></p>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap and AOS JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+    // Initialize AOS
+    AOS.init();
+</script>
+
+</body>
+</html>

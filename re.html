@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Redirection</title>
+    <script>
+        // Function to redirect based on service selected
+        function redirectToService(service) {
+            // Construct the query URL based on the service parameter
+            let url = `query.html?service=${service}`;
+            // Redirect to the constructed URL
+            window.location.href = url;
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Buttons or Links for each service -->
+    <button onclick="redirectToService('Website%20Development')">Website Development</button>
+    <button onclick="redirectToService('Digital%20Marketing')">Digital Marketing</button>
+    <button onclick="redirectToService('Business%20Development')">Business Development</button>
+    <button onclick="redirectToService('Branding')">Branding</button>
+
+</body>
+</html>
