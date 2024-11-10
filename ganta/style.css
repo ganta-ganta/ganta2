@@ -414,57 +414,78 @@ h1, p {
     margin: 0; /* Remove default margin if needed */
 }
  /*external add on*/
-/* General styling for all plan icons */
-.plan-icon {
-    background-color: #333; /* Dark gray background for sub-card */
-    color: #FFD700; /* Gold color for icon and text */
-    border: 2px solid #FFD700; /* Border with gold color */
-    border-radius: 8px; /* Rounded corners */
-    padding: 20px;
-    margin: 10px;
-    text-align: center; /* Center icon and text */
-    width: 100%; /* Full width within parent container */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+/* General styling for the pricing card */
+#pricing-card {
+    background-color: #333; /* Dark background */
+    color: #FFD700; /* Gold text */
+    border: 1px solid #FFD700;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Specific styles for each plan type */
+/* Service Title Icon */
+#service-title i {
+    color: #FFD700; /* Gold color for icon */
+    margin-right: 10px;
+}
+
+/* Plan Icon Styles */
+.plan-icon {
+    background-color: #333;
+    color: #FFD700;
+    border: 2px solid #FFD700;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Specific colors for each plan border */
 .basic-plan {
-    border-color: #FFD700; /* Gold border for basic plan */
+    border-color: #FFD700; /* Gold border */
 }
 
 .standard-plan {
-    border-color: #ffa200; /* Orange border for standard plan */
+    border-color: #ffa200; /* Orange border */
 }
 
 .premium-plan {
-    border-color: #FFD700; /* Gold border for premium plan */
+    border-color: #FFD700; /* Gold border */
 }
 
-/* Font size for the plan icons */
+/* Icon and Text Styling */
 .plan-icon i {
-    font-size: 3rem; /* Size for icons */
-    margin-bottom: 10px;
+    font-size: 3rem;
+    margin-right: 10px;
 }
 
-/* Styling for plan text */
-.plan-icon p {
+.plan-icon span {
     font-size: 1.2rem;
     font-weight: bold;
-    margin-top: 5px;
 }
 
-/* Responsive styling for sub-cards on smaller screens */
-@media (max-width: 767px) {
-    .plan-icon {
-        padding: 15px;
-        margin: 5px;
-    }
-
-    .plan-icon i {
-        font-size: 2.5rem;
-    }
+/* WhatsApp Button styling */
+.btn-whatsapp {
+    background-color: #444;
+    color: #FFD700;
+    border: 2px solid #FFD700;
+    padding: 10px 20px;
+    margin-top: 20px;
+    display: inline-flex;
+    align-items: center;
 }
 
+.btn-whatsapp i {
+    font-size: 1.5rem;
+    margin-right: 8px;
+}
 
-
-
+/* Hover effect for WhatsApp button */
+.btn-whatsapp:hover {
+    background-color: #333;
+    color: #e6c200;
+    }
