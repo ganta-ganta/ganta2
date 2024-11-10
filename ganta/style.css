@@ -413,6 +413,58 @@ h1, p {
     text-align: center;
     margin: 0; /* Remove default margin if needed */
 }
+ /*external add on*/
+/* General styling for all plan icons */
+.plan-icon {
+    background-color: #333; /* Dark gray background for sub-card */
+    color: #FFD700; /* Gold color for icon and text */
+    border: 2px solid #FFD700; /* Border with gold color */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px;
+    margin: 10px;
+    text-align: center; /* Center icon and text */
+    width: 100%; /* Full width within parent container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+/* Specific styles for each plan type */
+.basic-plan {
+    border-color: #FFD700; /* Gold border for basic plan */
+}
+
+.standard-plan {
+    border-color: #ffa200; /* Orange border for standard plan */
+}
+
+.premium-plan {
+    border-color: #FFD700; /* Gold border for premium plan */
+}
+
+/* Font size for the plan icons */
+.plan-icon i {
+    font-size: 3rem; /* Size for icons */
+    margin-bottom: 10px;
+}
+
+/* Styling for plan text */
+.plan-icon p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* Responsive styling for sub-cards on smaller screens */
+@media (max-width: 767px) {
+    .plan-icon {
+        padding: 15px;
+        margin: 5px;
+    }
+
+    .plan-icon i {
+        font-size: 2.5rem;
+    }
+}
+
 
 
 
