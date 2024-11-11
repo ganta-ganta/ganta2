@@ -1,0 +1,24 @@
+# robots.txt for gantasolutions.com
+# Allow all search engines to crawl the main content of the website
+
+User-agent: *
+Disallow: /admin/
+Disallow: /login/
+Disallow: /register/
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /scripts/
+Disallow: /tmp/
+Disallow: /private/
+
+# Allow search engines to access CSS, JS, and images for proper indexing
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.gif$
+Allow: /*.svg$
+
+# Sitemap location for better indexing
+Sitemap: https://gantasolutions.com/sitemap.xml
