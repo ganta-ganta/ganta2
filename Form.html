@@ -6,94 +6,114 @@
     <title>Website Requirement Form - Ganta Solutions</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
+        /* Black and Gold Theme */
         body {
-    background-color: #000000; /* Black background */
-    color: #ffd700; /* Gold text color */
-    font-family: Arial, sans-serif;
-    padding: 20px;
-}
+            background-color: #000000; /* Black background */
+            color: #ffd700; /* Gold text */
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
 
-.form-container {
-    max-width: 700px;
-    margin: auto;
-    background-color: #1a1a1a; /* Dark gray for the form background */
-    color: #ffd700; /* Gold text color for the form content */
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.5); /* Gold shadow effect */
-    border: 2px solid #ffd700; /* Gold border */
-}
+        .form-container {
+            max-width: 700px;
+            margin: auto;
+            background-color: #1a1a1a; /* Dark gray for the form background */
+            color: #ffd700; /* Gold text color */
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3); /* Gold shadow effect */
+            border: 2px solid #ffd700; /* Gold border */
+        }
 
-.form-title {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: bold;
-    color: #ffd700; /* Gold for the title */
-}
+        .form-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffd700; /* Gold for the title */
+        }
 
-input, textarea, button {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ffd700; /* Gold border */
-    border-radius: 5px;
-    background-color: #1a1a1a; /* Match the form background */
-    color: #ffd700; /* Gold text */
-    font-size: 16px;
-}
+        input, textarea, select, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ffd700; /* Gold border */
+            border-radius: 5px;
+            background-color: #1a1a1a; /* Match the form background */
+            color: #ffd700; /* Gold text */
+            font-size: 16px;
+            outline: none;
+        }
 
-input::placeholder, textarea::placeholder {
-    color: #ffd700; /* Gold placeholder text */
-    opacity: 0.7;
-}
+        input::placeholder, textarea::placeholder {
+            color: #ffd700; /* Gold placeholder text */
+            opacity: 0.7;
+        }
 
-button {
-    background-color: #ffd700; /* Gold button background */
-    color: #000000; /* Black button text */
-    font-weight: bold;
-    cursor: pointer;
-    border: none;
-}
+        button {
+            background-color: #ffd700; /* Gold button background */
+            color: #000000; /* Black button text */
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
 
-button:hover {
-    background-color: #e6b800; /* Slightly darker gold on hover */
-}
+        button:hover {
+            background-color: #e6b800; /* Slightly darker gold on hover */
+            transform: scale(1.02); /* Slightly enlarge on hover */
+        }
 
-a {
-    color: #ffd700; /* Gold links */
-    text-decoration: none;
-}
+        .form-label i {
+            margin-right: 5px;
+        }
 
-a:hover {
-    text-decoration: underline;
-}
-        
+        a {
+            color: #ffd700; /* Gold links */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #e6b800; /* Slightly darker gold on hover */
+        }
     </style>
 </head>
 <body>
     <div class="container form-container">
-        <h2 class="form-title">Website Requirement Form</h2>
+        <h2 class="form-title">
+            <i class="bi bi-pencil-square"></i> Website Requirement Form
+        </h2>
         <form id="requirementForm" onsubmit="sendToWhatsApp(event)">
             <!-- Business Information -->
             <div class="mb-3">
-                <label for="businessName" class="form-label">Business Name</label>
+                <label for="businessName" class="form-label">
+                    <i class="bi bi-building"></i> Business Name
+                </label>
                 <input type="text" class="form-control" id="businessName" placeholder="Enter your business name" required>
             </div>
             <div class="mb-3">
-                <label for="contactEmail" class="form-label">Email Address</label>
+                <label for="contactEmail" class="form-label">
+                    <i class="bi bi-envelope-fill"></i> Email Address
+                </label>
                 <input type="email" class="form-control" id="contactEmail" placeholder="Enter your email" required>
             </div>
             <div class="mb-3">
-                <label for="phoneNumber" class="form-label">Phone Number</label>
+                <label for="phoneNumber" class="form-label">
+                    <i class="bi bi-telephone-fill"></i> Phone Number
+                </label>
                 <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter your phone number" required>
             </div>
             
             <!-- Website Purpose & Domain -->
             <div class="mb-3">
-                <label for="websitePurpose" class="form-label">Purpose of Website</label>
+                <label for="websitePurpose" class="form-label">
+                    <i class="bi bi-display"></i> Purpose of Website
+                </label>
                 <select class="form-select" id="websitePurpose" required>
                     <option value="" selected disabled>Select website purpose</option>
                     <option value="Bookings">Bookings</option>
@@ -103,34 +123,46 @@ a:hover {
                 </select>
             </div>
             <div class="mb-3">
-                <label for="domainName" class="form-label">Preferred Domain Name</label>
+                <label for="domainName" class="form-label">
+                    <i class="bi bi-globe"></i> Preferred Domain Name
+                </label>
                 <input type="text" class="form-control" id="domainName" placeholder="e.g., yourbusiness.com">
             </div>
 
             <!-- Pages & Design Preferences -->
             <div class="mb-3">
-                <label for="designPreferences" class="form-label">Design Preferences</label>
+                <label for="designPreferences" class="form-label">
+                    <i class="bi bi-brush"></i> Design Preferences
+                </label>
                 <textarea class="form-control" id="designPreferences" rows="3" placeholder="Describe design inspirations or color schemes"></textarea>
             </div>
 
             <!-- Functionalities & Budget -->
             <div class="mb-3">
-                <label for="budget" class="form-label">Estimated Budget (₹)</label>
+                <label for="budget" class="form-label">
+                    <i class="bi bi-currency-rupee"></i> Estimated Budget (₹)
+                </label>
                 <input type="number" class="form-control" id="budget" placeholder="e.g., 15000">
             </div>
             <div class="mb-3">
-                <label for="deadline" class="form-label">Project Deadline</label>
+                <label for="deadline" class="form-label">
+                    <i class="bi bi-calendar-event"></i> Project Deadline
+                </label>
                 <input type="date" class="form-control" id="deadline" required>
             </div>
 
             <!-- Additional Notes -->
             <div class="mb-3">
-                <label for="additionalNotes" class="form-label">Additional Notes</label>
+                <label for="additionalNotes" class="form-label">
+                    <i class="bi bi-sticky"></i> Additional Notes
+                </label>
                 <textarea class="form-control" id="additionalNotes" rows="3" placeholder="Any additional requirements or concerns"></textarea>
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary w-100">Submit Requirements</button>
+            <button type="submit" class="btn btn-primary w-100">
+                <i class="bi bi-send-fill"></i> Submit Requirements
+            </button>
         </form>
     </div>
 
@@ -154,15 +186,15 @@ a:hover {
             const additionalNotes = document.getElementById('additionalNotes').value;
 
             // Format the message
-            const message = `*Website Requirement Details*
-            *Business Name:* ${businessName}
-            *Email:* ${contactEmail}
-            *Phone Number:* ${phoneNumber}
-            *Website Purpose:* ${websitePurpose}
-            *Domain Name:* ${domainName}
-            *Design Preferences:* ${designPreferences}
-            *Budget:* ₹${budget}
-            *Deadline:* ${deadline}
+            const message = `*Website Requirement Details*\n
+            *Business Name:* ${businessName}\n
+            *Email:* ${contactEmail}\n
+            *Phone Number:* ${phoneNumber}\n
+            *Website Purpose:* ${websitePurpose}\n
+            *Domain Name:* ${domainName}\n
+            *Design Preferences:* ${designPreferences}\n
+            *Budget:* ₹${budget}\n
+            *Deadline:* ${deadline}\n
             *Additional Notes:* ${additionalNotes}`;
 
             // WhatsApp link
