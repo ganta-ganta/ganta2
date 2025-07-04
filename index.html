@@ -3,18 +3,1299 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ganta Solutions</title>
+  <title>Ganta Solutions - Digital Transformation Experts</title>
   <link href="gantasolutions.png" rel="icon">
   <link href="gantasolutions.png" rel="apple-touch-icon">
+  
   <!-- Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
   <!-- Font Awesome for icons -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-  <!-- Bootstrap CSS -->
-  <link href="ganta/style.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  
+  <!-- Animate.css for animations -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  
+  <!-- AOS (Animate On Scroll) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-color: #FFA500;
+      --secondary-color: #FFD700;
+      --dark-color: #1a1a1a;
+      --light-color: #f8f9fa;
+      --accent-color: #ff6b35;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      overflow-x: hidden;
+    }
+    
+    /* Preloader Styles */
+    .preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--dark-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+    
+    .preloader svg {
+      width: 300px;
+      height: 300px;
+    }
+    
+    .preloader text {
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    /* Navbar Styles */
+    .navbar {
+      background-color: rgba(0, 0, 0, 0.9) !important;
+      backdrop-filter: blur(10px);
+      padding: 15px 0;
+      transition: all 0.3s ease;
+    }
+    
+    .navbar.scrolled {
+      padding: 10px 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--primary-color) !important;
+    }
+    
+    .navbar-brand img {
+      margin-right: 10px;
+    }
+    
+    .nav-link {
+      font-weight: 500;
+      margin: 0 10px;
+      position: relative;
+      color: white !important;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--primary-color);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .nav-link.active {
+      color: var(--primary-color) !important;
+    }
+    
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('gantasolutions1.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      height: 100vh;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.8) 100%);
+      z-index: 0;
+    }
+    
+    .hero-section .container {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .hero-section h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    
+    .hero-section p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 30px;
+    }
+    
+    .hero-section img {
+      width: 150px;
+      height: auto;
+      margin-bottom: 30px;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    /* Button Styles */
+    .btn-warning {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      color: white;
+      font-weight: 600;
+      padding: 12px 30px;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-warning:hover {
+      background-color: #e69500;
+      border-color: #e69500;
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(255, 165, 0, 0.3);
+    }
+    
+    .btn-warning::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%);
+      transform-origin: 50% 50%;
+    }
+    
+    .btn-warning:focus:not(:active)::after {
+      animation: ripple 1s ease-out;
+    }
+    
+    @keyframes ripple {
+      0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(20, 20);
+        opacity: 0;
+      }
+    }
+    
+    /* Card Styles */
+    .card {
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+      height: 100%;
+    }
+    
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+    
+    .card-body {
+      padding: 30px;
+    }
+    
+    .card-title {
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+    
+    .card-text {
+      color: #666;
+    }
+    
+    /* Service Cards */
+    .service-card {
+      text-align: center;
+      padding: 30px 20px;
+      border-radius: 15px;
+      transition: all 0.5s ease;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--dark-color) 0%, #2a2a2a 100%);
+      z-index: -1;
+      transition: all 0.5s ease;
+    }
+    
+    .service-card:hover::before {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    }
+    
+    .service-card i {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+      transition: all 0.5s ease;
+    }
+    
+    .service-card:hover i {
+      color: white;
+      transform: scale(1.2);
+    }
+    
+    .service-card h5 {
+      color: white;
+      transition: all 0.5s ease;
+    }
+    
+    .service-card:hover h5 {
+      color: white;
+    }
+    
+    .service-card p {
+      color: #ccc;
+      transition: all 0.5s ease;
+    }
+    
+    .service-card:hover p {
+      color: white;
+    }
+    
+    /* Section Headings */
+    .section-heading {
+      text-align: center;
+      margin-bottom: 60px;
+      position: relative;
+    }
+    
+    .section-heading h2 {
+      font-weight: 700;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: var(--dark-color);
+    }
+    
+    .section-heading p {
+      font-size: 1.1rem;
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .section-heading::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+      margin: 20px auto 0;
+      border-radius: 2px;
+    }
+    
+    /* Client Showcase */
+    .client-showcase {
+      padding: 80px 0;
+      background-color: #f9f9f9;
+    }
+    
+    .client-logo {
+      height: 100px;
+      object-fit: contain;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+    
+    .client-card {
+      transition: all 0.3s ease;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    
+    .client-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .client-card:hover .client-logo {
+      transform: scale(1.1);
+    }
+    
+    /* Testimonials */
+    .testimonial {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      position: relative;
+      margin-bottom: 30px;
+    }
+    
+    .testimonial::before {
+      content: '\201C';
+      font-size: 5rem;
+      color: var(--primary-color);
+      opacity: 0.2;
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      font-family: Georgia, serif;
+    }
+    
+    .testimonial p {
+      font-style: italic;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .testimonial h5 {
+      color: var(--primary-color);
+      font-weight: 600;
+      margin-top: 20px;
+    }
+    
+    /* Appointment Form */
+    .appointment-form {
+      background-color: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .form-icon {
+      margin-right: 10px;
+      color: var(--primary-color);
+    }
+    
+    .form-control {
+      padding: 12px 15px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.2rem rgba(255, 165, 0, 0.25);
+    }
+    
+    .btn-whatsapp {
+      background-color: #25D366;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-whatsapp:hover {
+      background-color: #128C7E;
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+    }
+    
+    /* Contact Cards */
+    .contact-card {
+      text-align: center;
+      padding: 30px;
+      border-radius: 15px;
+      transition: all 0.3s ease;
+      height: 100%;
+      background-color: white;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .contact-card i {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+    
+    .contact-card h5 {
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+    
+    .contact-card a {
+      color: var(--dark-color);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .contact-card a:hover {
+      color: var(--primary-color);
+    }
+    
+    /* Footer */
+    .footer {
+      background-color: var(--dark-color);
+      color: white;
+      padding: 80px 0 30px;
+    }
+    
+    .footer h4, .footer h5 {
+      color: var(--primary-color);
+      margin-bottom: 25px;
+      font-weight: 600;
+    }
+    
+    .footer p, .footer a {
+      color: #bbb;
+      transition: all 0.3s ease;
+    }
+    
+    .footer a:hover {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+    
+    .footer-links {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+    
+    .footer-links a {
+      display: block;
+      padding: 8px 0;
+      position: relative;
+      padding-left: 25px;
+    }
+    
+    .footer-links a::before {
+      content: '\f054';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      top: 8px;
+      font-size: 12px;
+      color: var(--primary-color);
+      transition: all 0.3s ease;
+    }
+    
+    .footer-links a:hover::before {
+      transform: translateX(5px);
+    }
+    
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      margin-right: 10px;
+      color: white;
+      transition: all 0.3s ease;
+    }
+    
+    .social-links a:hover {
+      background-color: var(--primary-color);
+      transform: translateY(-5px);
+    }
+    
+    .copyright {
+      margin-top: 50px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #999;
+    }
+    
+    .sitename {
+      color: var(--primary-color);
+    }
+    
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      z-index: 99;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .back-to-top.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .back-to-top:hover {
+      background-color: var(--accent-color);
+      transform: translateY(-5px);
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 992px) {
+      .hero-section h1 {
+        font-size: 2.8rem;
+      }
+      
+      .section-heading h2 {
+        font-size: 2rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .hero-section {
+        height: auto;
+        padding: 100px 0;
+      }
+      
+      .hero-section h1 {
+        font-size: 2.2rem;
+      }
+      
+      .hero-section p {
+        font-size: 1rem;
+      }
+      
+      .section-heading h2 {
+        font-size: 1.8rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .navbar-brand {
+        font-size: 1.2rem;
+      }
+      
+      .hero-section h1 {
+        font-size: 1.8rem;
+      }
+      
+      .btn-warning, .btn-whatsapp {
+        padding: 10px 20px;
+      }
+    }
+    
+    /* Particle Background */
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+    
+    /* Floating Animation */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    /* Icon Hover Effect */
+    .icon-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .icon-hover:hover {
+      transform: scale(1.2);
+      color: var(--primary-color) !important;
+    }
+    
+    /* Gradient Text */
+    .gradient-text {
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
 
+<!-- Preloader -->
+<div class="preloader">
+  <svg width="300" height="300" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="#FFA500" stroke-width="10" stroke-linecap="round">
+      <path d="M 100,20 A 80,80 0 0,1 180,100" opacity="0.8">
+        <animateTransform attributeName="transform" type="rotate" from="360 100 100" to="0 100 100" dur="3s" repeatCount="indefinite" />
+      </path>
+    </g>
+    <text x="50" y="110" font-family="Poppins, sans-serif" font-size="24" fill="orange" font-weight="bold" text-anchor="middle">
+      <tspan x="100" dy="0">Ganta</tspan>
+      <tspan x="100" dy="30" font-size="20" fill="#FFD700">Solutions</tspan>
+    </text>
+  </svg>
+</div>
 
+<!-- Header -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <img src="gantasolutions.png" width="30" height="30" alt="Logo" class="d-inline-block align-top">
+      <span class="gradient-text">Ganta Solutions</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="appointment.html">Appointment</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contact">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="service.html">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#blog">Blog</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<div class="hero-section">
+  <div id="particles-js"></div>
+  <div class="container">
+    <img src="gantasolutions.png" alt="Ganta Solutions" class="floating">
+    <h1 class="animate__animated animate__fadeInDown">Digital Solutions for <span class="gradient-text">Your Business</span></h1>
+    <p class="animate__animated animate__fadeIn animate__delay-1s">Transforming your business vision into reality with expert digital solutions in web development, branding, and marketing.</p>
+    <a href="get-start.html" class="btn btn-warning animate__animated animate__fadeInUp animate__delay-1s">Get Started <i class="fas fa-arrow-right ms-2"></i></a>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="container py-5">
+  <!-- Services Section -->
+  <div class="section-heading" data-aos="fade-up">
+    <h2>Our <span class="gradient-text">Services</span></h2>
+    <p>We offer comprehensive digital solutions to help your business grow and succeed in the online world.</p>
+  </div>
+  
+  <div class="row g-4">
+    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+      <div class="service-card">
+        <i class="fas fa-code"></i>
+        <h5>Web Development</h5>
+        <p>Custom website design and development tailored to your needs with the latest technologies.</p>
+      </div>
+    </div>
+    <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+      <div class="service-card">
+        <i class="fas fa-paint-brush"></i>
+        <h5>Branding</h5>
+        <p>Creating a unique brand identity that resonates with your audience and stands out.</p>
+      </div>
+    </div>
+    <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+      <div class="service-card">
+        <i class="fas fa-bullhorn"></i>
+        <h5>Digital Marketing</h5>
+        <p>Strategies to boost your online presence and engage your customers effectively.</p>
+      </div>
+    </div>
+    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+      <div class="service-card">
+        <i class="fas fa-mobile-alt"></i>
+        <h5>App Development</h5>
+        <p>Building mobile applications for iOS and Android platforms with seamless user experience.</p>
+      </div>
+    </div>
+    <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+      <div class="service-card">
+        <i class="fas fa-search-dollar"></i>
+        <h5>SEO Optimization</h5>
+        <p>Improving your website's visibility and ranking on search engines to drive more traffic.</p>
+      </div>
+    </div>
+    <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+      <div class="service-card">
+        <i class="fas fa-chart-line"></i>
+        <h5>Business Analytics</h5>
+        <p>Data-driven insights to help you make informed business decisions and strategies.</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Client Showcase Section -->
+  <div class="client-showcase mt-5">
+    <div class="section-heading" data-aos="fade-up">
+      <h2>Our <span class="gradient-text">Clients</span></h2>
+      <p>We take pride in working with some of the best in the industry. Here's a look at our valued clients:</p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <!-- Client 1 -->
+      <div class="col" data-aos="zoom-in" data-aos-duration="1000">
+        <div class="client-card h-100">
+          <img src="https://via.placeholder.com/300x150?text=GoPanda" alt="GoPanda" class="card-img-top client-logo">
+          <div class="card-body text-center">
+            <h5 class="card-title" style="color: var(--primary-color);">GoPanda Cars</h5>
+            <p class="card-text">Self-Drive Car Rentals for an amazing travel experience.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Client 2 -->
+      <div class="col" data-aos="zoom-in" data-aos-duration="1200">
+        <div class="client-card h-100">
+          <img src="https://via.placeholder.com/300x150?text=Kiwin" alt="Kiwin" class="card-img-top client-logo">
+          <div class="card-body text-center">
+            <h5 class="card-title" style="color: var(--primary-color);">Kiwin Water Bottles</h5>
+            <p class="card-text">Eco-friendly water bottles for everyday hydration.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Client 3 -->
+      <div class="col" data-aos="zoom-in" data-aos-duration="1400">
+        <div class="client-card h-100">
+          <img src="https://via.placeholder.com/300x150?text=Client+Logo" alt="Client" class="card-img-top client-logo">
+          <div class="card-body text-center">
+            <h5 class="card-title" style="color: var(--primary-color);">Client 3</h5>
+            <p class="card-text">Description of what this client does or what service was provided.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Client Testimonials Section -->
+    <div class="row mt-5">
+      <div class="col-md-6" data-aos="fade-right" data-aos-duration="1000">
+        <div class="testimonial">
+          <p>"Working with Ganta Solutions has been a fantastic experience. They helped us with digital marketing and website design, which significantly increased our visibility!"</p>
+          <h5>- gopandacars.in</h5>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6" data-aos="fade-left" data-aos-duration="1000">
+        <div class="testimonial">
+          <p>"The team at Ganta Solutions provided incredible service and delivered our website on time and within budget. Highly recommend them!"</p>
+          <h5>- kiwin.in</h5>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Blog Section -->
+  <div id="blog" class="mt-5">
+    <div class="section-heading" data-aos="fade-up">
+      <h2>Latest <span class="gradient-text">Blog Posts</span></h2>
+      <p>Stay updated with the latest trends and insights in digital solutions and business growth.</p>
+    </div>
+    
+    <div class="row g-4">
+      <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="card h-100">
+          <img src="https://via.placeholder.com/600x400?text=Web+Development" class="card-img-top" alt="Web Development">
+          <div class="card-body">
+            <h3 class="card-title">Web Development Trends Small Businesses Need to Know in 2024</h3>
+            <p class="card-text text-muted"><small><i class="far fa-calendar-alt me-2"></i>June 15, 2024</small></p>
+            <p class="card-text">In today's digital-first world, having a modern, responsive website is essential for any small business. Here's what's trending in 2024:</p>
+            <ul class="list-group list-group-flush mb-3">
+              <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i> Fast-Loading Websites</li>
+              <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i> Interactive User Experiences</li>
+              <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i> AI-Powered Personalization</li>
+            </ul>
+            <a href="#" class="btn btn-outline-warning">Read More <i class="fas fa-arrow-right ms-2"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="card h-100">
+          <img src="https://via.placeholder.com/600x400?text=Digital+Marketing" class="card-img-top" alt="Digital Marketing">
+          <div class="card-body">
+            <h3 class="card-title">Top Digital Marketing Strategies to Boost Your Business in 2024</h3>
+            <p class="card-text text-muted"><small><i class="far fa-calendar-alt me-2"></i>June 10, 2024</small></p>
+            <p class="card-text">Leverage these strategies to grow your business in the competitive digital landscape of 2024:</p>
+            <ul class="list-group list-group-flush mb-3">
+              <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i> Search Engine Optimization (SEO)</li>
+              <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i> Content Marketing</li>
+              <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i> Social Media Marketing</li>
+              <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i> Email Marketing</li>
+              <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i> Paid Advertising</li>
+            </ul>
+            <a href="#" class="btn btn-outline-warning">Read More <i class="fas fa-arrow-right ms-2"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Appointment Section -->
+  <div class="mt-5">
+    <div class="section-heading" data-aos="fade-up">
+      <h2>Schedule an <span class="gradient-text">Appointment</span></h2>
+      <p>Ready to discuss your project? Book a consultation with our experts today.</p>
+    </div>
+    
+    <div class="appointment-form" data-aos="fade-up" data-aos-delay="100">
+      <form id="appointmentForm">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="name"><i class="fas fa-user form-icon"></i> Your Name</label>
+              <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="email"><i class="fas fa-envelope form-icon"></i> Your Email</label>
+              <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="service"><i class="fas fa-cogs form-icon"></i> Service Interested In</label>
+              <select class="form-control" id="service" required>
+                <option value="">Select a service</option>
+                <option value="web-development">Web Development</option>
+                <option value="digital-marketing">Digital Marketing</option>
+                <option value="branding">Branding</option>
+                <option value="app-development">App Development</option>
+                <option value="seo">SEO Optimization</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="phone"><i class="fas fa-phone form-icon"></i> Phone Number</label>
+              <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="date"><i class="fas fa-calendar-alt form-icon"></i> Preferred Date</label>
+              <input type="date" class="form-control" id="date" required>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="time"><i class="fas fa-clock form-icon"></i> Preferred Time</label>
+              <input type="time" class="form-control" id="time" required>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label for="message"><i class="fas fa-comment form-icon"></i> Project Details</label>
+              <textarea class="form-control" id="message" rows="4" placeholder="Tell us about your project..." required></textarea>
+            </div>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-warning me-3"><i class="fas fa-paper-plane me-2"></i> Submit Request</button>
+            <button type="button" class="btn btn-whatsapp" onclick="sendWhatsApp()"><i class="fab fa-whatsapp me-2"></i> Chat on WhatsApp</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Contact Section -->
+  <div id="contact" class="mt-5">
+    <div class="section-heading" data-aos="fade-up">
+      <h2>Contact <span class="gradient-text">Us</span></h2>
+      <p>Get in touch with our team for any inquiries or project discussions.</p>
+    </div>
+    
+    <div class="row g-4">
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="contact-card">
+          <i class="fas fa-envelope"></i>
+          <h5>Email Us</h5>
+          <p>For inquiries, reach out to us via email:</p>
+          <a href="mailto:gantasolutions@gmail.com" class="d-block mt-3">gantasolutions@gmail.com</a>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="contact-card">
+          <i class="fas fa-phone-alt"></i>
+          <h5>Call Us</h5>
+          <p>For immediate assistance, give us a call:</p>
+          <a href="tel:+917995081439" class="d-block mt-3">+91 79950 81439</a>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="contact-card">
+          <i class="fab fa-whatsapp"></i>
+          <h5>WhatsApp Us</h5>
+          <p>Chat with us directly on WhatsApp:</p>
+          <a href="https://wa.me/7995081439" class="d-block mt-3">Start Chat</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="row gy-4">
+      <!-- About Section -->
+      <div class="col-lg-4 col-md-6">
+        <h4><img src="gantasolutions.png" width="40" height="40" alt="Logo" class="me-2">Ganta Solutions</h4>
+        <p>Transforming businesses through innovative digital solutions since 2024. We help brands establish their online presence and grow their digital footprint.</p>
+        <div class="social-links mt-3">
+          <a href="https://www.instagram.com/ganta_solutions?igsh=MWxsbjI1MDBtcnllcw==" class="instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="facebook"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="linkedin"><i class="fab fa-linkedin"></i></a>
+          <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      
+      <!-- Quick Links -->
+      <div class="col-lg-2 col-md-6">
+        <h5>Quick Links</h5>
+        <ul class="footer-links">
+          <li><a href="#"><i class="fas fa-chevron-right me-2"></i> Home</a></li>
+          <li><a href="service.html"><i class="fas fa-chevron-right me-2"></i> Services</a></li>
+          <li><a href="#blog"><i class="fas fa-chevron-right me-2"></i> Blog</a></li>
+          <li><a href="#contact"><i class="fas fa-chevron-right me-2"></i> Contact</a></li>
+          <li><a href="appointment.html"><i class="fas fa-chevron-right me-2"></i> Appointment</a></li>
+        </ul>
+      </div>
+      
+      <!-- Services -->
+      <div class="col-lg-3 col-md-6">
+        <h5>Our Services</h5>
+        <ul class="footer-links">
+          <li><a href="service.html#web-development"><i class="fas fa-chevron-right me-2"></i> Web Development</a></li>
+          <li><a href="service.html#digital-marketing"><i class="fas fa-chevron-right me-2"></i> Digital Marketing</a></li>
+          <li><a href="service.html#branding"><i class="fas fa-chevron-right me-2"></i> Branding</a></li>
+          <li><a href="service.html#app-development"><i class="fas fa-chevron-right me-2"></i> App Development</a></li>
+          <li><a href="service.html#seo"><i class="fas fa-chevron-right me-2"></i> SEO Services</a></li>
+        </ul>
+      </div>
+      
+      <!-- Contact Info -->
+      <div class="col-lg-3 col-md-6">
+        <h5>Contact Info</h5>
+        <p><i class="fas fa-map-marker-alt me-2"></i> Visakhapatnam, Andhra Pradesh, India</p>
+        <p><i class="fas fa-phone-alt me-2"></i> <a href="tel:+917995081439">+91 79950 81439</a></p>
+        <p><i class="fas fa-envelope me-2"></i> <a href="mailto:gantasolutions@gmail.com">gantasolutions@gmail.com</a></p>
+        <p><i class="fab fa-whatsapp me-2"></i> <a href="https://wa.me/7995081439">Chat on WhatsApp</a></p>
+      </div>
+    </div>
+    
+    <!-- Copyright -->
+    <div class="copyright text-center mt-5">
+      <p>&copy; <span id="currentYear"></span> <strong class="px-1 sitename">Ganta Solutions</strong>. All Rights Reserved.</p>
+      <div class="credits">
+        Designed & Developed by <a href="https://gantasolutions.com">Ganta Solutions</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to Top Button -->
+<a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
+<!-- Bootstrap JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Particles.js -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+<!-- AOS (Animate On Scroll) -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<!-- Custom Scripts -->
+<script>
+  // Wait for the DOM to be fully loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    // Preloader
+    setTimeout(function() {
+      document.querySelector('.preloader').style.opacity = '0';
+      setTimeout(function() {
+        document.querySelector('.preloader').style.display = 'none';
+      }, 500);
+    }, 2000);
+    
+    // Initialize AOS
+    AOS.init({
+      duration: 1000,
+      once: true,
+      easing: 'ease-in-out'
+    });
+    
+    // Initialize particles.js
+    if (document.getElementById('particles-js')) {
+      particlesJS('particles-js', {
+        "particles": {
+          "number": {
+            "value": 80,
+            "density": {
+              "enable": true,
+              "value_area": 800
+            }
+          },
+          "color": {
+            "value": "#FFA500"
+          },
+          "shape": {
+            "type": "circle",
+            "stroke": {
+              "width": 0,
+              "color": "#000000"
+            },
+            "polygon": {
+              "nb_sides": 5
+            }
+          },
+          "opacity": {
+            "value": 0.5,
+            "random": false,
+            "anim": {
+              "enable": false,
+              "speed": 1,
+              "opacity_min": 0.1,
+              "sync": false
+            }
+          },
+          "size": {
+            "value": 3,
+            "random": true,
+            "anim": {
+              "enable": false,
+              "speed": 40,
+              "size_min": 0.1,
+              "sync": false
+            }
+          },
+          "line_linked": {
+            "enable": true,
+            "distance": 150,
+            "color": "#FFA500",
+            "opacity": 0.4,
+            "width": 1
+          },
+          "move": {
+            "enable": true,
+            "speed": 2,
+            "direction": "none",
+            "random": false,
+            "straight": false,
+            "out_mode": "out",
+            "bounce": false,
+            "attract": {
+              "enable": false,
+              "rotateX": 600,
+              "rotateY": 1200
+            }
+          }
+        },
+        "interactivity": {
+          "detect_on": "canvas",
+          "events": {
+            "onhover": {
+              "enable": true,
+              "mode": "grab"
+            },
+            "onclick": {
+              "enable": true,
+              "mode": "push"
+            },
+            "resize": true
+          },
+          "modes": {
+            "grab": {
+              "distance": 140,
+              "line_linked": {
+                "opacity": 1
+              }
+            },
+            "bubble": {
+              "distance": 400,
+              "size": 40,
+              "duration": 2,
+              "opacity": 8,
+              "speed": 3
+            },
+            "repulse": {
+              "distance": 200,
+              "duration": 0.4
+            },
+            "push": {
+              "particles_nb": 4
+            },
+            "remove": {
+              "particles_nb": 2
+            }
+          }
+        },
+        "retina_detect": true
+      });
+    }
+    
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 50) {
+        document.querySelector('.navbar').classList.add('scrolled');
+      } else {
+        document.querySelector('.navbar').classList.remove('scrolled');
+      }
+      
+      // Back to top button
+      if (window.scrollY > 300) {
+        document.querySelector('.back-to-top').classList.add('active');
+      } else {
+        document.querySelector('.back-to-top').classList.remove('active');
+      }
+    });
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 70,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // Form submission
+    document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form values
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const service = document.getElementById('service').value;
+      const phone = document.getElementById('phone').value;
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+      const message = document.getElementById('message').value;
+      
+      // Here you would typically send this data to your server
+      // For demonstration, we'll just show an alert
+      alert(`Thank you, ${name}! Your appointment request for ${service} on ${date} at ${time} has been received. We'll contact you shortly at ${email} or ${phone}.`);
+      
+      // Reset form
+      this.reset();
+    });
+    
+    // Set current year in footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    
+    // WhatsApp function
+    window.sendWhatsApp = function() {
+      const name = document.getElementById('name').value || 'Potential Client';
+      const email = document.getElementById('email').value || 'Not provided';
+      const service = document.getElementById('service').value || 'Not specified';
+      const phone = document.getElementById('phone').value || 'Not provided';
+      const date = document.getElementById('date').value || 'Not specified';
+      const time = document.getElementById('time').value || 'Not specified';
+      const message = document.getElementById('message').value || 'No additional message';
+      
+      const whatsappMessage = `Hello Ganta Solutions,\n\nI would like to schedule an appointment:\n\n*Name:* ${name}\n*Email:* ${email}\n*Phone:* ${phone}\n*Service Interested In:* ${service}\n*Preferred Date:* ${date}\n*Preferred Time:* ${time}\n\n*Project Details:*\n${message}`;
+      
+      const whatsappUrl = `https://wa.me/917995081439?text=${encodeURIComponent(whatsappMessage)}`;
+      window.open(whatsappUrl, '_blank');
+    };
+    
+    // Add animation to icons on hover
+    document.querySelectorAll('.service-card i, .contact-card i, .social-links a').forEach(icon => {
+      icon.addEventListener('mouseenter', function() {
+        this.classList.add('animate__animated', 'animate__pulse');
+      });
+      
+      icon.addEventListener('mouseleave', function() {
+        this.classList.remove('animate__animated', 'animate__pulse');
+      });
+    });
+  });
+</script>
 
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">
@@ -29,7 +1310,8 @@ s0.parentNode.insertBefore(s1,s0);
 })();
 </script>
 <!--End of Tawk.to Script-->
-  <!-- Google tag (gtag.js) -->
+
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2D2WZ41ZEB"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -38,451 +1320,5 @@ s0.parentNode.insertBefore(s1,s0);
 
   gtag('config', 'G-2D2WZ41ZEB');
 </script>
-  <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyAc4XWIVzjy4OcjWGY2r1_Dfxazxc9BHRM",
-    authDomain: "alokam-b19e3.firebaseapp.com",
-    projectId: "alokam-b19e3",
-    storageBucket: "alokam-b19e3.firebasestorage.app",
-    messagingSenderId: "973033356352",
-    appId: "1:973033356352:web:f8c253aa3ec3d750bef3a5",
-    measurementId: "G-JPHJMSWFM2"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
-  
-</head>
-<body>
-
-<!-- Preloader -->
-<div class="preloader">
-  <svg width="300" height="300" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-    <g fill="none" stroke="#FFA500" stroke-width="10" stroke-linecap="round">
-      <!-- Anti-clockwise rotation by reversing "from" and "to" values -->
-      <path d="M 100,20 A 80,80 0 0,1 180,100" opacity="0.8">
-        <animateTransform attributeName="transform" type="rotate" from="360 100 100" to="0 100 100" dur="3s" repeatCount="indefinite" />
-      </path>
-    </g>
-    <text x="50" y="110" font-family="Arial, sans-serif" font-size="24" fill="orange" font-weight="bold" text-anchor="middle">
-      <tspan x="100" dy="0">Ganta</tspan>
-      <tspan x="100" dy="30" font-size="20" fill="#FFD700">Solutions</tspan>
-    </text>
-  </svg>
-</div>
-  
-
-<!-- Header -->
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container">
-    <a class="navbar-brand" href="#">
-      <img src="gantasolutions.png" width="30" height="30" alt="Logo">
-      Ganta Solutions
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarContent">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="appointment.html">Appointment</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#contact">Contact</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="service.html">Service</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-
-
-
-<!-- Hero Section -->
-<div class="hero-section" style="background-image: url('gantasolutions1.png'); background-size: cover; background-position: center; height: 80vh; color: white; display: flex; align-items: center; justify-content: center; text-align: center;">
-  <div class="container">
-    <img src="gantasolutions.png" alt="Ganta Solutions" style="width: 100px; height: auto; margin-bottom: 20px;"> <!-- Logo -->
-    <h1 class="display-4">Welcome to Ganta Solutions</h1>
-    <p class="lead">Transforming your business vision into reality with expert digital solutions in web development, branding, and marketing.</p>
-    <a href="get-start.html" class="btn btn-warning btn-lg">Get-start</a>
-  </div>
-</div>
-
-<!-- Main Content -->
-<div class="main-content container" style="margin-top: 20px;">
-  <h2>What Ganta Solutions Can Do</h2>
-  <div class="row">
-    <div class="col-md-4">
-      <div class="card text-white bg-dark mb-3">
-        <div class="card-body">
-          <i class="fas fa-code fa-3x mb-3"></i>
-          <h5 class="card-title">Web Development</h5>
-          <p class="card-text">Custom website design and development tailored to your needs.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card text-white bg-dark mb-3">
-        <div class="card-body">
-          <i class="fas fa-paint-brush fa-3x mb-3"></i>
-          <h5 class="card-title">Branding</h5>
-          <p class="card-text">Creating a unique brand identity that resonates with your audience.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card text-white bg-dark mb-3">
-        <div class="card-body">
-          <i class="fas fa-bullhorn fa-3x mb-3"></i>
-          <h5 class="card-title">Digital Marketing</h5>
-          <p class="card-text">Strategies to boost your online presence and engage your customers.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Client Showcase Section -->
-<section class="client-showcase">
-  <div class="container text-center">
-      <h2 data-aos="fade-up" data-aos-duration="1000">Our Esteemed Clients</h2>
-      <p class="lead" data-aos="fade-up" data-aos-duration="1500">We take pride in working with some of the best in the industry. Here's a look at our valued clients:</p>
-
-      <div class="row row-cols-1 row-cols-md-3 g-4">
-          <!-- Client 1 -->
-          <div class="col" data-aos="zoom-in" data-aos-duration="1000">
-              <div class="card">
-                  <img src="https://via.placeholder.com/200x100?text=GoPanda" alt="GoPanda" class="card-img-top client-logo">
-                  <div class="card-body text-center">
-                      <h5 class="card-title" style="color: #f1c40f;">GoPanda Cars</h5>
-                      <p class="card-text" style="color: #ddd;">Self-Drive Car Rentals for an amazing travel experience.</p>
-                  </div>
-              </div>
-          </div>
-          <!-- Client 2 -->
-          <div class="col" data-aos="zoom-in" data-aos-duration="1200">
-              <div class="card">
-                  <img src="https://via.placeholder.com/200x100?text=Kiwin" alt="Kiwin" class="card-img-top client-logo">
-                  <div class="card-body text-center">
-                      <h5 class="card-title" style="color: #f1c40f;">Kiwin Water Bottles</h5>
-                      <p class="card-text" style="color: #ddd;">Eco-friendly water bottles for everyday hydration.</p>
-                  </div>
-              </div>
-          </div>
-
-          <!-- Hidden Clients Section (Privacy Purposes) -->
-          <div class="hidden-clients">
-              <!-- Client 3 -->
-              <div class="col" data-aos="zoom-in" data-aos-duration="1400">
-                  <div class="card">
-                      <img src="https://via.placeholder.com/200x100?text=Client+Logo" alt="Client" class="card-img-top client-logo">
-                      <div class="card-body text-center">
-                          <h5 class="card-title" style="color: #f1c40f;">Client 3</h5>
-                          <p class="card-text" style="color: #ddd;">Description of what this client does or what service was provided.</p>
-                      </div>
-                  </div>
-              </div>
-              <!-- Client 4 -->
-              <div class="col" data-aos="zoom-in" data-aos-duration="1600">
-                  <div class="card">
-                      <img src="https://via.placeholder.com/200x100?text=Client+Logo" alt="Client" class="card-img-top client-logo">
-                      <div class="card-body text-center">
-                          <h5 class="card-title" style="color: #f1c40f;">Client 4</h5>
-                          <p class="card-text" style="color: #ddd;">Description of what this client does or what service was provided.</p>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-          <!-- "Coming Soon" Section -->
-          <div class="coming-soon" data-aos="fade-up" data-aos-duration="2000">
-              <p>Two more clients are coming soon! Stay tuned for updates!</p>
-          </div>
-      </div>
-
-      <!-- Client Testimonials Section -->
-      <div class="row mt-5">
-          <div class="col-md-6" data-aos="fade-right" data-aos-duration="1000">
-              <div class="testimonial">
-                  <p>"Working with Ganta Solutions has been a fantastic experience. They helped us with digital marketing and website design, which significantly increased our visibility!"</p>
-                  <h5>-gopandacars.in</h5>
-              </div>
-          </div>
-          <div class="col-md-6" data-aos="fade-left" data-aos-duration="1000">
-              <div class="testimonial">
-                  <p>"The team at Ganta Solutions provided incredible service and delivered our website on time and within budget. Highly recommend them!"</p>
-                  <h5>-kiwin.in</h5>
-              </div>
-          </div>
-      </div>
-  </div>
-</section>
-
-
-  <h2>Latest Blog Posts</h2>
-  <div class="row">
-    <div class="col-md-6">
-      <div class="card bg-dark text-white mb-3">
-        <div class="card-body">
-          <h3 class="card-title">Web Development Trends Small Businesses Need to Know in 2024</h3>
-          <p class="card-text">In today’s digital-first world, having a modern, responsive website is essential for any small business. Here’s what’s trending in 2024:</p>
-          <ol>
-            
-            <li><strong>Fast-Loading Websites:</strong> </li>
-            <li><strong>Interactive User Experiences</strong> </li>
-            <li><strong>AI-Powered Personalization</strong> </li>
-          </ol>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card bg-dark text-white mb-3">
-        <div class="card-body">
-          <h3 class="card-title">Top Digital Marketing Strategies to Boost Your Business in 2024</h3>
-          <p class="card-text">Leverage these strategies to grow your business:</p>
-          <ol>
-            <li><strong>Search Engine Optimization (SEO)</strong> </li>
-            <li><strong>Content Marketing</strong> </li>
-            <li><strong>Social Media Marketing</strong> </li>
-            <li><strong>Email Marketing</strong> </li>
-            <li><strong>Paid Advertising</strong> </li>
-          </ol>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="container mt-5">
-    <h2 class="text-center">Schedule an Appointment</h2>
-    
-    <!-- Form in Bootstrap Cards -->
-    <div class="card p-4">
-        <form id="appointmentForm">
-            <div class="form-group mb-3">
-                <label for="name"><i class="fas fa-user form-icon"></i>Your Name</label>
-                <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
-            </div>
-            <div class="form-group mb-3">
-                <label for="email"><i class="fas fa-envelope form-icon"></i>Your Email</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
-            </div>
-            <div class="form-group mb-3">
-                <label for="date"><i class="fas fa-calendar-alt form-icon"></i>Appointment Date</label>
-                <input type="date" class="form-control" id="date" required>
-            </div>
-            <div class="form-group mb-3">
-                <label for="time"><i class="fas fa-clock form-icon"></i>Appointment Time</label>
-                <input type="time" class="form-control" id="time" required>
-            </div>
-            <div class="form-group mb-3">
-                <label for="message"><i class="fas fa-comment form-icon"></i>Additional Message</label>
-                <textarea class="form-control" id="message" rows="3" placeholder="Any additional information..." required></textarea>
-            </div>
-            <button type="button" class="btn btn-whatsapp" onclick="sendWhatsApp()"><i class="fab fa-whatsapp"></i> Send via WhatsApp</button>
-        </form>
-    </div>
-</div>
-
- <h2 id="contact">Contact Us</h2>
-<div class="row mb-4">
-  <div class="col-md-4">
-    <div class="card bg-dark text-white">
-      <div class="card-body text-center">
-        <i class="fas fa-envelope fa-3x mb-3"></i>
-        <h5 class="card-title">Email Us</h5>
-        <p class="card-text">For inquiries, reach out to us via email:</p>
-        <a href="mailto:gantasolutions@gmail.com" class="btn btn-warning">gantasolutions@gmail.com</a>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card bg-dark text-white">
-      <div class="card-body text-center">
-        <i class="fas fa-phone-alt fa-3x mb-3"></i>
-        <h5 class="card-title">Call Us</h5>
-        <p class="card-text">For immediate assistance, give us a call:</p>
-        <a href="tel:+917995081439" class="btn btn-warning">7995081439</a>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card bg-dark text-white">
-      <div class="card-body text-center">
-        <i class="fab fa-whatsapp fa-3x mb-3"></i>
-        <h5 class="card-title">WhatsApp Us</h5>
-        <p class="card-text">Chat with us directly on WhatsApp:</p>
-        <a href="https://wa.me/7995081439" class="btn btn-warning">Message Us</a>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-
-<footer id="footer" class="footer dark-background">
-  <div class="container">
-    <div class="row gy-3">
-      
-      
-      <!-- Contact Section -->
-      <div class="col-lg-3 col-md-6 d-flex">
-        <i class="bi bi-telephone icon"></i>
-        <div>
-          <h4>Contact</h4>
-          <p>
-            <strong>Phone:</strong> <span>7995081439</span><br>
-            <div class="contact-info">
-    <strong>Contact Us:</strong><br>
-    <a href="mailto:contact@gantasolutions.com"><span>contact@gantasolutions.com</span></a><br>
-    <a href="mailto:help@gantasolutions.com"><span>help@gantasolutions.com</span></a><br>
-    <a href="mailto:support@gantasolutions.com"><span>support@gantasolutions.com</span></a><br>
-    <a href="mailto:sales@gantasolutions.com"><span>sales@gantasolutions.com</span></a><br>
-    <a href="mailto:info@gantasolutions.com"><span>info@gantasolutions.com</span></a><br>
-    <a href="mailto:admin@gantasolutions.com"><span>admin@gantasolutions.com</span></a><br>
-    <a href="mailto:billing@gantasolutions.com"><span>billing@gantasolutions.com</span></a><br>
-    <a href="mailto:careers@gantasolutions.com"><span>careers@gantasolutions.com</span></a><br>
-    <a href="mailto:feedback@gantasolutions.com"><span>feedback@gantasolutions.com</span></a><br>
-    <a href="mailto:partners@gantasolutions.com"><span>partners@gantasolutions.com</span></a><br>
-            </div>
-          </p>
-        </div>
-      </div>
-
-      
-
-      <!-- Social Media Section -->
-      <div class="col-lg-3 col-md-6">
-        <h4>Follow Us</h4>
-        <div class="social-links d-flex">
-          <a href="https://www.instagram.com/ganta_solutions?igsh=MWxsbjI1MDBtcnllcw==" class="instagram"><i class="bi bi-instagram"></i></a>
-          <a href="https://www.instagram.com/ganta_solutions?igsh=MWxsbjI1MDBtcnllcw==" class="facebook"><i class="bi bi-facebook"></i></a>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6">
-        <h5><i class="bi bi-link icon"></i> Useful Links</h5>
-        <ul class="footer-links list-unstyled">
-            <li><a href="get-start.html"><i class="bi bi-globe icon"></i>Get-Start</a></li>
-            <li><a href="selection.html"><i class="bi bi-bar-chart-line icon"></i> Digital Marketing</a></li>
-            <li><a href="selection.html"><i class="bi bi-briefcase icon"></i> Business Development</a></li>
-            <li><a href="selection.html"><i class="bi bi-palette icon"></i> Branding</a></li>
-        </ul>
-    </div>
-    <!-- Appointment Section -->
-    <div class="col-lg-3 col-md-6">
-      <h5><i class="bi bi-calendar-check icon"></i> Appointment</h5>
-      <p>Schedule a consultation to discuss your needs and goals.</p>
-      <a href="appointment.html" class="footer-links"><i class="bi bi-calendar2-plus icon"></i> Book Now</a>
-  </div>
-
-    </div>
-  </div>
-
-  <!-- Footer Bottom -->
-  <div class="container copyright text-center mt-4">
-    <p>© <span>Copyright</span> <strong class="px-1 sitename">Ganta solutions</strong> <span>All Rights Reserved</span></p>
-    <div class="credits">
-      Developed by <a href="https://gantasolutions.com">GANTA</a>
-    </div>
-  </div>
-</footer>
-
-<script>
-  // Wait for 3 seconds (the duration of the preloader animation)
-  setTimeout(function() {
-    document.querySelector('.preloader').style.display = 'none'; // Hide preloader
-    document.querySelector('.main-content').style.display = 'block'; // Show main content
-  }, 2000);
-
-  // Handle appointment form submission
-  document.getElementById('appointmentForm').onsubmit = function(e) {
-    e.preventDefault();
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const date = document.getElementById('date').value;
-    const time = document.getElementById('time').value;
-    const message = document.getElementById('message').value;
-
-    // Simple alert to simulate appointment scheduling
-    alert(`Appointment scheduled for ${name} on ${date} at ${time}.\nMessage: ${message}`);
-    
-    // Generate calendar link
-    const calendarLink = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Appointment%20with%20${encodeURIComponent(name)}&dates=${date}T${time}00Z/${date}T${time}00Z&details=${encodeURIComponent(message)}&location=Ganta%20Solutions`;
-    document.getElementById('calendarLink').setAttribute('href', calendarLink);
-    document.getElementById('calendarLink').setAttribute('target', '_blank');
-  };
-
-</script>
-<script>
-  // WhatsApp number for Ganta Solutions
-  const whatsappNumber = "7995081439";
-
-  function sendWhatsApp() {
-      // Collect form data
-      const name = document.getElementById("name").value;
-      const email = document.getElementById("email").value;
-      const date = document.getElementById("date").value;
-      const time = document.getElementById("time").value;
-      const message = document.getElementById("message").value;
-
-      // Create WhatsApp message content
-      const whatsappMessage = `Hello, I would like to schedule an appointment.\n\n` +
-                              `Name: ${name}\n` +
-                              `Email: ${email}\n` +
-                              `Date: ${date}\n` +
-                              `Time: ${time}\n` +
-                              `Additional Message: ${message}`;
-
-      // Open WhatsApp with the pre-filled message
-      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
-      window.open(whatsappUrl, "_blank");
-  }
-</script>
-
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<!-- Script to Show Modal on Page Load and Handle Preloader -->
-<script>
-  $(document).ready(function() {
-    $('#constructionModal').modal('show');
-
-    // Wait for 3 seconds (the duration of the preloader animation)
-    setTimeout(function() {
-      document.querySelector('.preloader').style.display = 'none'; // Hide preloader
-      document.querySelector('.main-content').style.display = 'block'; // Show main content
-      document.body.style.overflow = 'auto'; // Allow scrolling after preloader
-    }, 3000);
-  });
-</script>
-<!-- Bootstrap JS and dependencies (only include if needed) -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-
-
-<!-- Under Construction Modal -->
-
 </body>
-<!-- jQuery and Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-
 </html>
