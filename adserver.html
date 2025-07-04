@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GantaSolutions Ad Server</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .ad-dashboard {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .ad-preview-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .ad-list-item {
+            transition: all 0.2s;
+        }
+        .ad-list-item:hover {
+            background-color: #f8f9fa;
+        }
+        .stats-card {
+            border-left: 4px solid #0d6efd;
+        }
+    </style>
+</head>
+<body>
+    <div class="ad-dashboard">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">GantaSolutions Ad Server</a>
+            </div>
+        </nav>
+
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card stats-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Active Ads</h5>
+                        <h2 class="card-text" id="active-ads-count">0</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card stats-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Today's Impressions</h5>
+                        <h2 class="card-text" id="today-impressions">0</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card stats-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Today's Clicks</h5>
+                        <h2 class="card-text" id="today-clicks">0</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5>Create New Ad</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="ad-form">
+                            <div class="mb-3">
+                                <label for="ad-title" class="form-label">Ad Title</label>
+                                <input type="text" class="form-control" id="ad-title" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ad-description" class="form-label">Description</label>
+                                <textarea class="form-control" id="ad-description" rows="3"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ad-image" class="form-label">Image URL</label>
+                                <input type="url" class="form-control" id="ad-image" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ad-url" class="form-label">Target URL</label>
+                                <input type="url" class="form-control" id="ad-url" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ad-sponsor" class="form-label">Sponsor Name</label>
+                                <input type="text" class="form-control" id="ad-sponsor" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ad-campaign" class="form-label">Campaign</label>
+                                <input type="text" class="form-control" id="ad-campaign">
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="ad-active" checked>
+                                <label class="form-check-label" for="ad-active">Active</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Create Ad</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h5>Active Advertisements</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Preview</th>
+                                    <th>Title</th>
+                                    <th>Campaign</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ads-table">
+                                <!-- Ads will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Embed Code Modal -->
+    <div class="modal fade" id="embedCodeModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Embed Code</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Copy and paste this code into your website:</p>
+                    <textarea id="embed-code" class="form-control" rows="8" readonly></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="copyEmbedCode()">Copy Code</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Ad Server Script -->
+    <script>
+        // In-memory "database" for demo purposes
+        // In production, replace with actual database calls
+        let ads = [
+            {
+                id: 'ad1',
+                title: 'Summer Sale',
+                description: 'Get 50% off on all products this summer',
+                image: 'https://gantasolutions.com/img/ad1.jpg',
+                url: 'https://gantasolutions.com/summer-sale',
+                sponsor: 'GantaSolutions',
+                campaign: 'Summer 2023',
+                active: true,
+                created: new Date().toISOString(),
+                impressions: 1245,
+                clicks: 42
+            },
+            {
+                id: 'ad2',
+                title: 'New Product Launch',
+                description: 'Check out our revolutionary new product',
+                image: 'https://gantasolutions.com/img/ad2.jpg',
+                url: 'https://gantasolutions.com/new-product',
+                sponsor: 'GantaSolutions',
+                campaign: 'Product Launch',
+                active: true,
+                created: new Date().toISOString(),
+                impressions: 892,
+                clicks: 31
+            }
+        ];
+
+        // Initialize when DOM loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load ads table
+            loadAdsTable();
+            
+            // Set up form submission
+            document.getElementById('ad-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                createAd();
+            });
+            
+            // Update stats
+            updateStats();
+        });
+
+        // Load ads into table
+        function loadAdsTable() {
+            const table = document.getElementById('ads-table');
+            table.innerHTML = '';
+            
+            ads.forEach(ad => {
+                const row = document.createElement('tr');
+                row.className = 'ad-list-item';
+                row.innerHTML = `
+                    <td><img src="${ad.image}" style="width: 60px; height: 40px; object-fit: cover;"></td>
+                    <td>${ad.title}</td>
+                    <td>${ad.campaign || '-'}</td>
+                    <td>
+                        <span class="badge ${ad.active ? 'bg-success' : 'bg-secondary'}">
+                            ${ad.active ? 'Active' : 'Inactive'}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary" onclick="showEmbedCode('${ad.id}')">
+                            <i class="fas fa-code"></i> Embed
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteAd('${ad.id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                table.appendChild(row);
+            });
+        }
+
+        // Create new ad
+        function createAd() {
+            const newAd = {
+                id: 'ad_' + Math.random().toString(36).substring(2, 9),
+                title: document.getElementById('ad-title').value,
+                description: document.getElementById('ad-description').value,
+                image: document.getElementById('ad-image').value,
+                url: document.getElementById('ad-url').value,
+                sponsor: document.getElementById('ad-sponsor').value,
+                campaign: document.getElementById('ad-campaign').value,
+                active: document.getElementById('ad-active').checked,
+                created: new Date().toISOString(),
+                impressions: 0,
+                clicks: 0
+            };
+            
+            ads.push(newAd);
+            loadAdsTable();
+            updateStats();
+            
+            // Reset form
+            document.getElementById('ad-form').reset();
+            
+            alert('Ad created successfully!');
+        }
+
+        // Delete ad
+        function deleteAd(adId) {
+            if (confirm('Are you sure you want to delete this ad?')) {
+                ads = ads.filter(ad => ad.id !== adId);
+                loadAdsTable();
+                updateStats();
+            }
+        }
+
+        // Show embed code
+        function showEmbedCode(adId) {
+            const ad = ads.find(a => a.id === adId);
+            if (!ad) return;
+            
+            const embedCode = `
+<!-- GantaSolutions Ad Widget -->
+<div id="ganta-ad-${adId}"></div>
+<script>
+    (function() {
+        const adContainer = document.getElementById('ganta-ad-${adId}');
+        adContainer.innerHTML = \`
+            <div style="border: 1px solid #ddd; border-radius: 8px; padding: 10px; max-width: 300px; margin: 10px auto;">
+                <div style="position: relative;">
+                    <img src="${ad.image}" style="width: 100%; height: auto; border-radius: 5px;">
+                    <span style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 2px 6px; border-radius: 3px; font-size: 0.7rem;">Sponsored</span>
+                </div>
+                <div style="padding: 10px;">
+                    <h5 style="margin: 10px 0; font-size: 1rem;">${ad.title}</h5>
+                    <p style="font-size: 0.8rem; color: #555; margin-bottom: 10px;">${ad.description}</p>
+                    <a href="https://gantasolutions.com/click?ad=${adId}&redirect=${encodeURIComponent(ad.url)}" 
+                       style="display: inline-block; background: #0d6efd; color: white; padding: 5px 10px; border-radius: 4px; text-decoration: none; font-size: 0.8rem;"
+                       target="_blank">
+                        Learn More
+                    </a>
+                    <p style="font-size: 0.7rem; color: #777; margin-top: 5px;">Sponsored by ${ad.sponsor}</p>
+                </div>
+            </div>
+        \`;
+        
+        // Track impression
+        fetch('https://gantasolutions.com/track', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                type: 'impression',
+                adId: '${adId}',
+                timestamp: new Date().toISOString(),
+                referrer: window.location.href
+            })
+        });
+    })();
+</script>
+<!-- End GantaSolutions Ad Widget -->
+            `;
+            
+            document.getElementById('embed-code').value = embedCode;
+            const modal = new bootstrap.Modal(document.getElementById('embedCodeModal'));
+            modal.show();
+        }
+
+        // Copy embed code to clipboard
+        function copyEmbedCode() {
+            const embedCode = document.getElementById('embed-code');
+            embedCode.select();
+            document.execCommand('copy');
+            alert('Embed code copied to clipboard!');
+        }
+
+        // Update statistics
+        function updateStats() {
+            document.getElementById('active-ads-count').textContent = 
+                ads.filter(ad => ad.active).length;
+            
+            const todayImpressions = ads.reduce((sum, ad) => sum + ad.impressions, 0);
+            document.getElementById('today-impressions').textContent = todayImpressions;
+            
+            const todayClicks = ads.reduce((sum, ad) => sum + ad.clicks, 0);
+            document.getElementById('today-clicks').textContent = todayClicks;
+        }
+
+        // API endpoint simulation (would be server-side in production)
+        function handleAdRequest(request) {
+            const url = new URL(request.url);
+            const clientId = url.searchParams.get('client');
+            const limit = parseInt(url.searchParams.get('limit')) || 4;
+            
+            // Get active ads
+            const activeAds = ads.filter(ad => ad.active);
+            
+            // Shuffle and limit
+            const shuffled = [...activeAds].sort(() => 0.5 - Math.random());
+            const responseAds = shuffled.slice(0, limit);
+            
+            // Update impressions (in production, this would be async)
+            responseAds.forEach(ad => {
+                ad.impressions++;
+            });
+            
+            return new Response(JSON.stringify(responseAds), {
+                headers: { 'Content-Type': 'application/json' }
+            });
+        }
+
+        // Track endpoint simulation
+        function handleTrackRequest(request) {
+            // In production, this would save to database
+            const data = request.json();
+            console.log('Tracking:', data);
+            
+            if (data.type === 'click') {
+                const ad = ads.find(a => a.id === data.adId);
+                if (ad) ad.clicks++;
+            }
+            
+            return new Response('OK');
+        }
+    </script>
+</body>
+</html>
