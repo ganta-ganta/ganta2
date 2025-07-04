@@ -1,18 +1,380 @@
-<!-- ads.html -->
-<div class="ad-card card mb-3" style="max-width: 300px;">
-  <img src="https://gantansolutions.com/adplacer/img/hosting.jpg" class="card-img-top" alt="Ganta Hosting">
-  <div class="card-body">
-    <h5 class="card-title">Ganta Hosting</h5>
-    <p class="card-text">Fast & secure web hosting from Ganta.</p>
-    <a href="https://gantansolutions.com/hosting" class="btn btn-primary" target="_blank">Learn More</a>
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GantaSolutions Ad Manager</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .ad-preview {
+            border: 2px dashed #ccc;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .ad-form-image-preview {
+            max-height: 150px;
+            margin-top: 10px;
+        }
+        .ad-list-item {
+            transition: all 0.3s;
+        }
+        .ad-list-item:hover {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5>Ad Management</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#" id="nav-create-ad">Create New Ad</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" id="nav-view-ads">View All Ads</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" id="nav-statistics">Statistics</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header bg-secondary text-white">
+                        <h5>Current Campaigns</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span>Active Ads:</span>
+                                <span class="badge bg-primary" id="active-ads-count">12</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span>Total Impressions:</span>
+                                <span class="badge bg-success" id="total-impressions">4,582</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span>Click Rate:</span>
+                                <span class="badge bg-info" id="click-rate">2.4%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-9">
+                <!-- Create Ad Form -->
+                <div class="card" id="create-ad-section">
+                    <div class="card-header bg-success text-white">
+                        <h5>Create New Advertisement</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="ad-form">
+                            <div class="mb-3">
+                                <label for="ad-title" class="form-label">Ad Title</label>
+                                <input type="text" class="form-control" id="ad-title" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ad-description" class="form-label">Description</label>
+                                <textarea class="form-control" id="ad-description" rows="2"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ad-image" class="form-label">Image URL</label>
+                                <input type="text" class="form-control" id="ad-image" 
+                                       value="https://gantasolutions.com/img/ad1.jpg" required>
+                                <small class="text-muted">Recommended size: 800x600px</small>
+                                <div class="mt-2">
+                                    <img src="https://gantasolutions.com/img/ad1.jpg" 
+                                         id="ad-image-preview" 
+                                         class="img-fluid ad-form-image-preview">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ad-url" class="form-label">Target URL</label>
+                                <input type="url" class="form-control" id="ad-url" 
+                                       value="https://gantasolutions.com" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ad-sponsor" class="form-label">Sponsor Name</label>
+                                <input type="text" class="form-control" id="ad-sponsor" 
+                                       value="GantaSolutions" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ad-campaign" class="form-label">Campaign</label>
+                                <select class="form-select" id="ad-campaign">
+                                    <option>Summer Sale</option>
+                                    <option>New Products</option>
+                                    <option>Holiday Special</option>
+                                    <option selected>General Promotion</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="ad-active" checked>
+                                <label class="form-check-label" for="ad-active">Active</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Ad</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- View Ads Section -->
+                <div class="card d-none" id="view-ads-section">
+                    <div class="card-header bg-info text-white">
+                        <h5>All Advertisements</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Preview</th>
+                                        <th>Title</th>
+                                        <th>Campaign</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ads-table-body">
+                                    <!-- Ads will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Statistics Section -->
+                <div class="card d-none" id="statistics-section">
+                    <div class="card-header bg-warning text-dark">
+                        <h5>Ad Performance Statistics</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Impressions by Ad</h6>
+                                <div class="chart-container" style="height: 300px;">
+                                    <!-- Chart would go here -->
+                                    <img src="https://via.placeholder.com/400x300?text=Impressions+Chart" 
+                                         class="img-fluid" alt="Impressions Chart">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Click-Through Rate</h6>
+                                <div class="chart-container" style="height: 300px;">
+                                    <!-- Chart would go here -->
+                                    <img src="https://via.placeholder.com/400x300?text=CTR+Chart" 
+                                         class="img-fluid" alt="CTR Chart">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div class="ad-card card mb-3" style="max-width: 300px;">
-  <img src="https://gantansolutions.com/adplacer/img/cars.jpg" class="card-img-top" alt="GoPanda Cars">
-  <div class="card-body">
-    <h5 class="card-title">GoPanda Cars</h5>
-    <p class="card-text">Premium car rentals in Guntur.</p>
-    <a href="https://gopandacars.com" class="btn btn-primary" target="_blank">Book Now</a>
-  </div>
-</div>
+    <!-- Ad Preview Modal -->
+    <div class="modal fade" id="adPreviewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ad Preview</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="ad-preview">
+                        <h4 id="preview-title">Ad Title</h4>
+                        <img id="preview-image" src="https://gantasolutions.com/img/ad1.jpg" 
+                             class="img-fluid mb-3" alt="Ad Preview">
+                        <p id="preview-description">Ad description goes here.</p>
+                        <p class="text-muted" id="preview-sponsor">Sponsored by Company</p>
+                        <a href="#" class="btn btn-primary" id="preview-url">Learn More</a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Ad Management Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation
+            document.getElementById('nav-create-ad').addEventListener('click', function(e) {
+                e.preventDefault();
+                showSection('create-ad-section');
+            });
+            
+            document.getElementById('nav-view-ads').addEventListener('click', function(e) {
+                e.preventDefault();
+                showSection('view-ads-section');
+                loadAdsTable();
+            });
+            
+            document.getElementById('nav-statistics').addEventListener('click', function(e) {
+                e.preventDefault();
+                showSection('statistics-section');
+            });
+            
+            // Image preview
+            document.getElementById('ad-image').addEventListener('input', function() {
+                document.getElementById('ad-image-preview').src = this.value;
+            });
+            
+            // Form submission
+            document.getElementById('ad-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                saveAd();
+            });
+            
+            // Show create ad section by default
+            showSection('create-ad-section');
+            
+            // Functions
+            function showSection(sectionId) {
+                document.getElementById('create-ad-section').classList.add('d-none');
+                document.getElementById('view-ads-section').classList.add('d-none');
+                document.getElementById('statistics-section').classList.add('d-none');
+                
+                document.getElementById(sectionId).classList.remove('d-none');
+            }
+            
+            function saveAd() {
+                const ad = {
+                    id: 'ad_' + Math.random().toString(36).substring(2, 9),
+                    title: document.getElementById('ad-title').value,
+                    description: document.getElementById('ad-description').value,
+                    image: document.getElementById('ad-image').value,
+                    url: document.getElementById('ad-url').value,
+                    sponsor: document.getElementById('ad-sponsor').value,
+                    campaign: document.getElementById('ad-campaign').value,
+                    active: document.getElementById('ad-active').checked,
+                    created: new Date().toISOString(),
+                    impressions: 0,
+                    clicks: 0
+                };
+                
+                // In production, this would save to a database
+                console.log('Saving ad:', ad);
+                
+                // Show success message
+                alert('Ad saved successfully!');
+                
+                // Preview the ad
+                previewAd(ad);
+            }
+            
+            function previewAd(ad) {
+                document.getElementById('preview-title').textContent = ad.title;
+                document.getElementById('preview-image').src = ad.image;
+                document.getElementById('preview-description').textContent = ad.description;
+                document.getElementById('preview-sponsor').textContent = 'Sponsored by ' + ad.sponsor;
+                document.getElementById('preview-url').href = ad.url;
+                
+                const previewModal = new bootstrap.Modal(document.getElementById('adPreviewModal'));
+                previewModal.show();
+            }
+            
+            function loadAdsTable() {
+                // In production, this would fetch from a database
+                const mockAds = [
+                    {
+                        id: 'ad1',
+                        title: 'Summer Sale',
+                        image: 'https://gantasolutions.com/img/ad1.jpg',
+                        campaign: 'Summer Sale',
+                        active: true,
+                        impressions: 1245,
+                        clicks: 32
+                    },
+                    {
+                        id: 'ad2',
+                        title: 'New Products',
+                        image: 'https://gantasolutions.com/img/ad2.jpg',
+                        campaign: 'New Arrivals',
+                        active: true,
+                        impressions: 892,
+                        clicks: 21
+                    },
+                    {
+                        id: 'ad3',
+                        title: 'Special Offer',
+                        image: 'https://gantasolutions.com/img/ad3.jpg',
+                        campaign: 'Limited Offer',
+                        active: false,
+                        impressions: 567,
+                        clicks: 14
+                    }
+                ];
+                
+                const tableBody = document.getElementById('ads-table-body');
+                tableBody.innerHTML = '';
+                
+                mockAds.forEach(ad => {
+                    const row = document.createElement('tr');
+                    row.className = 'ad-list-item';
+                    row.innerHTML = `
+                        <td><img src="${ad.image}" style="width: 60px; height: 40px; object-fit: cover;"></td>
+                        <td>${ad.title}</td>
+                        <td>${ad.campaign}</td>
+                        <td>
+                            <span class="badge ${ad.active ? 'bg-success' : 'bg-secondary'}">
+                                ${ad.active ? 'Active' : 'Inactive'}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary" onclick="editAd('${ad.id}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteAd('${ad.id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+                
+                // Update stats
+                document.getElementById('active-ads-count').textContent = 
+                    mockAds.filter(ad => ad.active).length;
+                document.getElementById('total-impressions').textContent = 
+                    mockAds.reduce((sum, ad) => sum + ad.impressions, 0).toLocaleString();
+                
+                const totalClicks = mockAds.reduce((sum, ad) => sum + ad.clicks, 0);
+                const totalImpressions = mockAds.reduce((sum, ad) => sum + ad.impressions, 1);
+                const clickRate = (totalClicks / totalImpressions * 100).toFixed(1);
+                document.getElementById('click-rate').textContent = clickRate + '%';
+            }
+            
+            // Expose functions to global scope
+            window.editAd = function(adId) {
+                alert('Edit ad: ' + adId);
+                // In production, this would load the ad data into the form
+            };
+            
+            window.deleteAd = function(adId) {
+                if (confirm('Are you sure you want to delete this ad?')) {
+                    alert('Deleted ad: ' + adId);
+                    // In production, this would remove from database
+                    loadAdsTable(); // Refresh the table
+                }
+            };
+        });
+    </script>
+</body>
+</html>
