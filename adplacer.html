@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Display</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .ad-container {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .ad-image {
+            max-width: 100%;
+            height: auto;
+        }
+        .ad-stats {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="mb-4">Advertisement</h1>
+        
+        <!-- Ad Placement Containers -->
+        <div class="row">
+            <div class="col-md-6">
+                <div id="leaderboard-ad" class="ad-container">
+                    <h5>Leaderboard Ad</h5>
+                    <div class="ad-content"></div>
+                    <div class="ad-stats"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div id="sidebar-ad" class="ad-container">
+                    <h5>Sidebar Ad</h5>
+                    <div class="ad-content"></div>
+                    <div class="ad-stats"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-3">
+            <div class="col-12">
+                <div id="banner-ad" class="ad-container">
+                    <h5>Banner Ad</h5>
+                    <div class="ad-content"></div>
+                    <div class="ad-stats"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Admin Controls (only visible if allowed) -->
+        <div id="admin-controls" class="mt-4 p-3 bg-light rounded" style="display: none;">
+            <h4>Admin Controls</h4>
+            <button id="refresh-ads" class="btn btn-primary btn-sm">Refresh Ads</button>
+            <button id="toggle-rotation" class="btn btn-secondary btn-sm">Pause Rotation</button>
+            <div class="mt-2">
+                <label for="rotation-speed" class="form-label">Rotation Speed (seconds):</label>
+                <input type="number" id="rotation-speed" class="form-control form-control-sm" value="30" min="5" style="width: 100px;">
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Ad Management JS -->
+    <script src="ad-manager.js"></script>
+</body>
+</html>
