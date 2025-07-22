@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Info | KAKUKANU</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #2d3436;
+            --light: #f5f6fa;
+            --success: #00b894;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+            color: var(--dark);
+        }
+        .payment-card {
+            max-width: 500px;
+            margin: 30px auto;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        .card-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        .card-header h2 {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .card-header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        .card-body {
+            padding: 25px;
+        }
+        .info-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        .info-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+        .info-label i {
+            margin-right: 10px;
+            width: 20px;
+            color: var(--primary);
+        }
+        .info-value-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--light);
+            border-radius: 10px;
+            padding: 12px 15px;
+            border: 1px solid #e0e3e7;
+        }
+        .info-value {
+            font-size: 15px;
+            font-weight: 500;
+            word-break: break-all;
+            padding-right: 10px;
+        }
+        .copy-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+        .copy-btn:hover {
+            background: var(--success);
+            transform: scale(1.05);
+        }
+        .highlight {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+        }
+        .bank-logo {
+            width: 50px;
+            height: 50px;
+            background: #e3f2fd;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: #1e88e5;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .bank-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .bank-details {
+            flex: 1;
+        }
+        .bank-name {
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .bank-meta {
+            font-size: 13px;
+            color: #666;
+        }
+        .note {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 25px;
+            font-size: 13px;
+            color: #666;
+        }
+        .note strong {
+            color: var(--dark);
+        }
+        .upi-apps {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .upi-app {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .upi-app img {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-card">
+        <div class="card-header">
+            <h2>Payment Information</h2>
+            <p>Please use these details for your transaction</p>
+        </div>
+        
+        <div class="card-body">
+            <div class="bank-info">
+                <div class="bank-logo">SBI</div>
+                <div class="bank-details">
+                    <div class="bank-name">State Bank of India</div>
+                    <div class="bank-meta">KAKUKANU Branch (Code: 3120)</div>
+                </div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="fas fa-university"></i>
+                    Account Number
+                </div>
+                <div class="info-value-container highlight">
+                    <div class="info-value">39759764169</div>
+                    <button class="copy-btn" onclick="copyToClipboard('39759764169')">
+                        <i class="far fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="fas fa-user-tie"></i>
+                    Account Holder
+                </div>
+                <div class="info-value-container">
+                    <div class="info-value">Mr. Ganta Ramakrishna Sai</div>
+                    <button class="copy-btn" onclick="copyToClipboard('Mr. Ganta Ramakrishna Sai')">
+                        <i class="far fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="fas fa-qrcode"></i>
+                    IFSC Code
+                </div>
+                <div class="info-value-container">
+                    <div class="info-value">SBIN0003120</div>
+                    <button class="copy-btn" onclick="copyToClipboard('SBIN0003120')">
+                        <i class="far fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="fas fa-mobile-alt"></i>
+                    UPI ID
+                </div>
+                <div class="info-value-container highlight">
+                    <div class="info-value">7993564948@ybl</div>
+                    <button class="copy-btn" onclick="copyToClipboard('7993564948@ybl')">
+                        <i class="far fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="fas fa-phone-alt"></i>
+                    UPI Mobile Number
+                </div>
+                <div class="info-value-container highlight">
+                    <div class="info-value">7993564948</div>
+                    <button class="copy-btn" onclick="copyToClipboard('7993564948')">
+                        <i class="far fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="fas fa-wallet"></i>
+                    Supported UPI Apps
+                </div>
+                <div class="info-value-container">
+                    <div class="info-value">PhonePe, GPay, Paytm & all UPI apps</div>
+                    <div class="upi-apps">
+                        <div class="upi-app">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/200px-Google_%22G%22_Logo.svg.png" alt="GPay">
+                        </div>
+                        <div class="upi-app">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/PhonePe_Logo.svg/2560px-PhonePe_Logo.svg.png" alt="PhonePe">
+                        </div>
+                        <div class="upi-app">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Paytm_logo.png/640px-Paytm_logo.png" alt="Paytm">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="note">
+                <strong>Important:</strong> After payment, please share the transaction screenshot for confirmation.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text)
+                .then(() => {
+                    // Optional: Show a small notification
+                    const originalIcon = event.target.innerHTML;
+                    event.target.innerHTML = '<i class="fas fa-check"></i>';
+                    event.target.style.background = 'var(--success)';
+                    
+                    setTimeout(() => {
+                        event.target.innerHTML = originalIcon;
+                        event.target.style.background = 'var(--primary)';
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('Failed to copy: ', err);
+                    alert('Failed to copy text. Please try again.');
+                });
+        }
+    </script>
+</body>
+</html>
