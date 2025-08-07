@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PDF ↔ JPG Converter | All-in-One Tool</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         :root {
             --primary: #4361ee;
@@ -187,6 +185,15 @@
                 flex-direction: column;
             }
         }
+
+        .loading {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -267,9 +274,18 @@
         </footer>
     </div>
 
+    <!-- Required Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
     <script>
-        // Initialize PDF.js
+        // Initialize PDF.js with correct worker path
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';
+        
+        // Initialize jsPDF
+        const { jsPDF } = window.jspdf;
 
         // DOM Elements
         const pdfInput = document.getElementById('pdfInput');
@@ -328,10 +344,10 @@
         pdfDropArea.addEventListener('drop', (e) => {
             const dt = e.dataTransfer;
             const file = dt.files[0];
-            if (file.type === 'application/pdf') {
+            if (file && file.type === 'application/pdf') {
                 handlePdfFile(file);
             } else {
-                alert('Please upload a PDF file');
+                alert('Please upload a valid PDF file');
             }
         });
 
@@ -345,42 +361,12 @@
             pdfPreviewArea.style.display = 'block';
             pdfPreview.innerHTML = 'Loading preview...';
 
-            // Load PDF preview (first page only)
-            const pdfData = await file.arrayBuffer();
-            const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
-            const page = await pdf.getPage(1);
-            const viewport = page.getViewport({ scale: 0.5 });
-            
-            const canvas = document.createElement('canvas');
-            const context = canvas.getContext('2d');
-            canvas.height = viewport.height;
-            canvas.width = viewport.width;
-
-            await page.render({
-                canvasContext: context,
-                viewport: viewport
-            }).promise;
-
-            pdfPreview.innerHTML = '';
-            pdfPreview.appendChild(canvas);
-        }
-
-        pdfToJpgBtn.addEventListener('click', async () => {
-            if (!pdfInput.files.length) {
-                alert('Please select a PDF file first!');
-                return;
-            }
-
-            const pdfFile = pdfInput.files[0];
-            const pdfData = await pdfFile.arrayBuffer();
-            const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
-            
-            jpgPreview.innerHTML = '';
-            jpgResults.style.display = 'block';
-
-            for (let i = 1; i <= pdf.numPages; i++) {
-                const page = await pdf.getPage(i);
-                const viewport = page.getViewport({ scale: 1.5 });
+            try {
+                const pdfData = await file.arrayBuffer();
+                const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
+                const page = await pdf.getPage(1);
+                const viewport = page.getViewport({ scale: 0.5 });
+                
                 const canvas = document.createElement('canvas');
                 const context = canvas.getContext('2d');
                 canvas.height = viewport.height;
@@ -391,18 +377,72 @@
                     viewport: viewport
                 }).promise;
 
-                const imgData = canvas.toDataURL('image/jpeg');
-                const img = document.createElement('img');
-                img.src = imgData;
-                jpgPreview.appendChild(img);
+                pdfPreview.innerHTML = '';
+                pdfPreview.appendChild(canvas);
+            } catch (error) {
+                pdfPreview.innerHTML = '<p style="color: var(--danger);">Could not load PDF preview</p>';
+                console.error("PDF preview error:", error);
+            }
+        }
+
+        // PDF to JPG Conversion
+        pdfToJpgBtn.addEventListener('click', async () => {
+            if (!pdfInput.files.length) {
+                alert('Please select a PDF file first!');
+                return;
             }
 
-            downloadAllJpg.style.display = 'inline-block';
-        });
+            const pdfFile = pdfInput.files[0];
+            try {
+                const pdfData = await pdfFile.arrayBuffer();
+                const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
+                
+                jpgPreview.innerHTML = '';
+                jpgResults.style.display = 'block';
+                pdfToJpgBtn.disabled = true;
+                pdfToJpgBtn.innerHTML = '<i class="fas fa-spinner loading"></i> Converting...';
 
-        // TODO: Implement ZIP download for all JPGs
-        downloadAllJpg.addEventListener('click', () => {
-            alert('In a real implementation, this would download all JPGs as a ZIP file');
+                const zip = new JSZip();
+                const imgFolder = zip.folder("extracted_images");
+
+                for (let i = 1; i <= pdf.numPages; i++) {
+                    const page = await pdf.getPage(i);
+                    const viewport = page.getViewport({ scale: 1.5 });
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    await page.render({
+                        canvasContext: context,
+                        viewport: viewport
+                    }).promise;
+
+                    // Add to preview
+                    const imgData = canvas.toDataURL('image/jpeg');
+                    const img = document.createElement('img');
+                    img.src = imgData;
+                    jpgPreview.appendChild(img);
+
+                    // Add to ZIP
+                    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.8));
+                    imgFolder.file(`page_${i}.jpg`, blob);
+                }
+
+                // Generate ZIP and enable download
+                const zipContent = await zip.generateAsync({ type: 'blob' });
+                downloadAllJpg.onclick = () => {
+                    saveAs(zipContent, 'extracted_images.zip');
+                };
+                downloadAllJpg.style.display = 'inline-block';
+                
+            } catch (error) {
+                console.error("Conversion error:", error);
+                alert('Error converting PDF: ' + error.message);
+            } finally {
+                pdfToJpgBtn.disabled = false;
+                pdfToJpgBtn.innerHTML = '<i class="fas fa-exchange-alt"></i> Convert to JPG';
+            }
         });
 
         // JPG to PDF Functions
@@ -433,7 +473,7 @@
             if (files.length) {
                 handleJpgFiles(files);
             } else {
-                alert('Please upload image files');
+                alert('Please upload image files (JPG, PNG, etc.)');
             }
         });
 
@@ -451,36 +491,70 @@
             });
         }
 
+        // JPG to PDF Conversion
         jpgToPdfBtn.addEventListener('click', async () => {
             if (!jpgInput.files.length) {
                 alert('Please select at least one image file!');
                 return;
             }
 
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF();
-            const files = jpgInput.files;
+            try {
+                jpgToPdfBtn.disabled = true;
+                jpgToPdfBtn.innerHTML = '<i class="fas fa-spinner loading"></i> Converting...';
+                
+                const pdf = new jsPDF();
+                const files = jpgInput.files;
+                let isFirstImage = true;
 
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const img = new Image();
-                img.src = URL.createObjectURL(file);
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    await new Promise((resolve) => {
+                        const img = new Image();
+                        img.onload = function() {
+                            if (!isFirstImage) {
+                                pdf.addPage();
+                            } else {
+                                isFirstImage = false;
+                            }
+                            
+                            const imgWidth = img.width;
+                            const imgHeight = img.height;
+                            const pageWidth = pdf.internal.pageSize.getWidth();
+                            const pageHeight = pdf.internal.pageSize.getHeight();
+                            
+                            // Calculate aspect ratio
+                            const ratio = Math.min((pageWidth - 20) / imgWidth, (pageHeight - 20) / imgHeight);
+                            const width = imgWidth * ratio;
+                            const height = imgHeight * ratio;
+                            
+                            // Center the image
+                            const x = (pageWidth - width) / 2;
+                            const y = (pageHeight - height) / 2;
+                            
+                            pdf.addImage(img, 'JPEG', x, y, width, height);
+                            resolve();
+                        };
+                        img.onerror = () => {
+                            console.warn(`Could not load image ${file.name}`);
+                            resolve(); // Skip if image fails to load
+                        };
+                        img.src = URL.createObjectURL(file);
+                    });
+                }
 
-                await new Promise((resolve) => {
-                    img.onload = () => {
-                        if (i > 0) pdf.addPage();
-                        const width = pdf.internal.pageSize.getWidth() - 20;
-                        const height = (img.height * width) / img.width;
-                        pdf.addImage(img, 'JPEG', 10, 10, width, height);
-                        resolve();
-                    };
-                });
+                const pdfBlob = pdf.output('blob');
+                const pdfUrl = URL.createObjectURL(pdfBlob);
+                downloadPdf.href = pdfUrl;
+                downloadPdf.download = 'converted_images.pdf';
+                pdfResult.style.display = 'block';
+                
+            } catch (error) {
+                console.error("Conversion error:", error);
+                alert('Error creating PDF: ' + error.message);
+            } finally {
+                jpgToPdfBtn.disabled = false;
+                jpgToPdfBtn.innerHTML = '<i class="fas fa-exchange-alt"></i> Convert to PDF';
             }
-
-            const pdfUrl = URL.createObjectURL(new Blob([pdf.output('blob')], { type: 'application/pdf' }));
-            downloadPdf.href = pdfUrl;
-            downloadPdf.download = 'converted.pdf';
-            pdfResult.style.display = 'block';
         });
     </script>
 </body>
