@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF ↔ JPG Converter | All-in-One Tool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --danger: #f72585;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .converter-container {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        .converter-box {
+            flex: 1;
+            min-width: 300px;
+            background: var(--light);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .converter-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .converter-title {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .drop-area {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+        }
+
+        .drop-area:hover {
+            border-color: var(--primary);
+            background: rgba(67, 97, 238, 0.05);
+        }
+
+        .drop-area.highlight {
+            border-color: var(--primary);
+            background: rgba(67, 97, 238, 0.1);
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--light);
+            color: var(--dark);
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+        }
+
+        .preview-area {
+            margin-top: 1.5rem;
+            min-height: 100px;
+        }
+
+        .preview-title {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            opacity: 0.8;
+        }
+
+        .image-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .image-preview img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 5px;
+            object-fit: cover;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .results {
+            margin-top: 1.5rem;
+            display: none;
+        }
+
+        .download-all {
+            margin-top: 1rem;
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: var(--dark);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .converter-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-exchange-alt"></i> PDF ↔ JPG Converter</h1>
+            <p class="subtitle">Convert between PDF and JPG files in seconds</p>
+        </header>
+
+        <div class="converter-container">
+            <!-- PDF to JPG Converter -->
+            <div class="converter-box">
+                <h2 class="converter-title"><i class="fas fa-file-pdf"></i> PDF to JPG</h2>
+                <p>Extract all pages from a PDF as JPG images</p>
+                
+                <div class="drop-area" id="pdfDropArea">
+                    <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; margin-bottom: 1rem; color: var(--primary);"></i>
+                    <p>Drag & drop your PDF file here</p>
+                    <p>or</p>
+                    <button class="btn btn-secondary" id="selectPdfBtn">
+                        <i class="fas fa-folder-open"></i> Select PDF File
+                    </button>
+                    <input type="file" id="pdfInput" class="file-input" accept=".pdf">
+                </div>
+
+                <button class="btn" id="pdfToJpgBtn" style="width: 100%;">
+                    <i class="fas fa-exchange-alt"></i> Convert to JPG
+                </button>
+
+                <div class="preview-area" id="pdfPreviewArea" style="display: none;">
+                    <p class="preview-title">PDF Preview</p>
+                    <div id="pdfPreview"></div>
+                </div>
+
+                <div class="results" id="jpgResults">
+                    <p class="preview-title">Extracted Images</p>
+                    <div class="image-preview" id="jpgPreview"></div>
+                    <button class="btn download-all" id="downloadAllJpg">
+                        <i class="fas fa-download"></i> Download All as ZIP
+                    </button>
+                </div>
+            </div>
+
+            <!-- JPG to PDF Converter -->
+            <div class="converter-box">
+                <h2 class="converter-title"><i class="fas fa-file-image"></i> JPG to PDF</h2>
+                <p>Combine multiple JPG images into one PDF file</p>
+                
+                <div class="drop-area" id="jpgDropArea">
+                    <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; margin-bottom: 1rem; color: var(--primary);"></i>
+                    <p>Drag & drop your JPG files here</p>
+                    <p>or</p>
+                    <button class="btn btn-secondary" id="selectJpgBtn">
+                        <i class="fas fa-folder-open"></i> Select JPG Files
+                    </button>
+                    <input type="file" id="jpgInput" class="file-input" accept="image/*" multiple>
+                </div>
+
+                <button class="btn" id="jpgToPdfBtn" style="width: 100%;">
+                    <i class="fas fa-exchange-alt"></i> Convert to PDF
+                </button>
+
+                <div class="preview-area" id="jpgPreviewArea">
+                    <p class="preview-title">Selected Images</p>
+                    <div class="image-preview" id="jpgToPdfPreview"></div>
+                </div>
+
+                <div class="results" id="pdfResult">
+                    <a class="btn download-all" id="downloadPdf">
+                        <i class="fas fa-file-pdf"></i> Download PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>PDF ↔ JPG Converter | Free Online Tool</p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize PDF.js
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';
+
+        // DOM Elements
+        const pdfInput = document.getElementById('pdfInput');
+        const selectPdfBtn = document.getElementById('selectPdfBtn');
+        const pdfDropArea = document.getElementById('pdfDropArea');
+        const pdfToJpgBtn = document.getElementById('pdfToJpgBtn');
+        const pdfPreviewArea = document.getElementById('pdfPreviewArea');
+        const pdfPreview = document.getElementById('pdfPreview');
+        const jpgResults = document.getElementById('jpgResults');
+        const jpgPreview = document.getElementById('jpgPreview');
+        const downloadAllJpg = document.getElementById('downloadAllJpg');
+
+        const jpgInput = document.getElementById('jpgInput');
+        const selectJpgBtn = document.getElementById('selectJpgBtn');
+        const jpgDropArea = document.getElementById('jpgDropArea');
+        const jpgToPdfBtn = document.getElementById('jpgToPdfBtn');
+        const jpgToPdfPreview = document.getElementById('jpgToPdfPreview');
+        const pdfResult = document.getElementById('pdfResult');
+        const downloadPdf = document.getElementById('downloadPdf');
+
+        // PDF to JPG Functions
+        selectPdfBtn.addEventListener('click', () => pdfInput.click());
+
+        pdfInput.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                handlePdfFile(e.target.files[0]);
+            }
+        });
+
+        // Drag and drop for PDF
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            pdfDropArea.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            pdfDropArea.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            pdfDropArea.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight() {
+            pdfDropArea.classList.add('highlight');
+        }
+
+        function unhighlight() {
+            pdfDropArea.classList.remove('highlight');
+        }
+
+        pdfDropArea.addEventListener('drop', (e) => {
+            const dt = e.dataTransfer;
+            const file = dt.files[0];
+            if (file.type === 'application/pdf') {
+                handlePdfFile(file);
+            } else {
+                alert('Please upload a PDF file');
+            }
+        });
+
+        async function handlePdfFile(file) {
+            pdfDropArea.innerHTML = `
+                <i class="fas fa-check-circle" style="font-size: 2rem; color: var(--success); margin-bottom: 1rem;"></i>
+                <p>${file.name}</p>
+                <small>${(file.size / 1024).toFixed(2)} KB</small>
+            `;
+
+            pdfPreviewArea.style.display = 'block';
+            pdfPreview.innerHTML = 'Loading preview...';
+
+            // Load PDF preview (first page only)
+            const pdfData = await file.arrayBuffer();
+            const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
+            const page = await pdf.getPage(1);
+            const viewport = page.getViewport({ scale: 0.5 });
+            
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            await page.render({
+                canvasContext: context,
+                viewport: viewport
+            }).promise;
+
+            pdfPreview.innerHTML = '';
+            pdfPreview.appendChild(canvas);
+        }
+
+        pdfToJpgBtn.addEventListener('click', async () => {
+            if (!pdfInput.files.length) {
+                alert('Please select a PDF file first!');
+                return;
+            }
+
+            const pdfFile = pdfInput.files[0];
+            const pdfData = await pdfFile.arrayBuffer();
+            const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
+            
+            jpgPreview.innerHTML = '';
+            jpgResults.style.display = 'block';
+
+            for (let i = 1; i <= pdf.numPages; i++) {
+                const page = await pdf.getPage(i);
+                const viewport = page.getViewport({ scale: 1.5 });
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                await page.render({
+                    canvasContext: context,
+                    viewport: viewport
+                }).promise;
+
+                const imgData = canvas.toDataURL('image/jpeg');
+                const img = document.createElement('img');
+                img.src = imgData;
+                jpgPreview.appendChild(img);
+            }
+
+            downloadAllJpg.style.display = 'inline-block';
+        });
+
+        // TODO: Implement ZIP download for all JPGs
+        downloadAllJpg.addEventListener('click', () => {
+            alert('In a real implementation, this would download all JPGs as a ZIP file');
+        });
+
+        // JPG to PDF Functions
+        selectJpgBtn.addEventListener('click', () => jpgInput.click());
+
+        jpgInput.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                handleJpgFiles(e.target.files);
+            }
+        });
+
+        // Drag and drop for JPGs
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            jpgDropArea.addEventListener(eventName, preventDefaults, false);
+        });
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            jpgDropArea.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            jpgDropArea.addEventListener(eventName, unhighlight, false);
+        });
+
+        jpgDropArea.addEventListener('drop', (e) => {
+            const dt = e.dataTransfer;
+            const files = Array.from(dt.files).filter(file => file.type.startsWith('image/'));
+            if (files.length) {
+                handleJpgFiles(files);
+            } else {
+                alert('Please upload image files');
+            }
+        });
+
+        function handleJpgFiles(files) {
+            jpgDropArea.innerHTML = `
+                <i class="fas fa-check-circle" style="font-size: 2rem; color: var(--success); margin-bottom: 1rem;"></i>
+                <p>${files.length} file(s) selected</p>
+            `;
+
+            jpgToPdfPreview.innerHTML = '';
+            Array.from(files).forEach(file => {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                jpgToPdfPreview.appendChild(img);
+            });
+        }
+
+        jpgToPdfBtn.addEventListener('click', async () => {
+            if (!jpgInput.files.length) {
+                alert('Please select at least one image file!');
+                return;
+            }
+
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF();
+            const files = jpgInput.files;
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const img = new Image();
+                img.src = URL.createObjectURL(file);
+
+                await new Promise((resolve) => {
+                    img.onload = () => {
+                        if (i > 0) pdf.addPage();
+                        const width = pdf.internal.pageSize.getWidth() - 20;
+                        const height = (img.height * width) / img.width;
+                        pdf.addImage(img, 'JPEG', 10, 10, width, height);
+                        resolve();
+                    };
+                });
+            }
+
+            const pdfUrl = URL.createObjectURL(new Blob([pdf.output('blob')], { type: 'application/pdf' }));
+            downloadPdf.href = pdfUrl;
+            downloadPdf.download = 'converted.pdf';
+            pdfResult.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
