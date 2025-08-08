@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF ↔ JPG Converter | All-in-One Tool</title>
+    <title>High Quality PDF ↔ JPG Converter</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -194,20 +194,35 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        .quality-options {
+            margin: 1rem 0;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .quality-options label {
+            font-size: 0.9rem;
+        }
+
+        .quality-slider {
+            flex-grow: 1;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1><i class="fas fa-exchange-alt"></i> PDF ↔ JPG Converter</h1>
-            <p class="subtitle">Convert between PDF and JPG files in seconds</p>
+            <h1><i class="fas fa-exchange-alt"></i> High Quality PDF ↔ JPG Converter</h1>
+            <p class="subtitle">Convert between PDF and JPG files with maximum quality</p>
         </header>
 
         <div class="converter-container">
             <!-- PDF to JPG Converter -->
             <div class="converter-box">
                 <h2 class="converter-title"><i class="fas fa-file-pdf"></i> PDF to JPG</h2>
-                <p>Extract all pages from a PDF as JPG images</p>
+                <p>Extract all pages from a PDF as high quality JPG images</p>
                 
                 <div class="drop-area" id="pdfDropArea">
                     <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; margin-bottom: 1rem; color: var(--primary);"></i>
@@ -217,6 +232,12 @@
                         <i class="fas fa-folder-open"></i> Select PDF File
                     </button>
                     <input type="file" id="pdfInput" class="file-input" accept=".pdf">
+                </div>
+
+                <div class="quality-options">
+                    <label for="pdfQuality">Quality:</label>
+                    <input type="range" id="pdfQuality" class="quality-slider" min="1" max="3" value="2" step="1">
+                    <span id="qualityValue">High</span>
                 </div>
 
                 <button class="btn" id="pdfToJpgBtn" style="width: 100%;">
@@ -240,7 +261,7 @@
             <!-- JPG to PDF Converter -->
             <div class="converter-box">
                 <h2 class="converter-title"><i class="fas fa-file-image"></i> JPG to PDF</h2>
-                <p>Combine multiple JPG images into one PDF file</p>
+                <p>Combine multiple JPG images into one high quality PDF file</p>
                 
                 <div class="drop-area" id="jpgDropArea">
                     <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; margin-bottom: 1rem; color: var(--primary);"></i>
@@ -250,6 +271,15 @@
                         <i class="fas fa-folder-open"></i> Select JPG Files
                     </button>
                     <input type="file" id="jpgInput" class="file-input" accept="image/*" multiple>
+                </div>
+
+                <div class="quality-options">
+                    <label for="pdfSize">PDF Size:</label>
+                    <select id="pdfSize" class="quality-slider">
+                        <option value="a4">A4 (210 × 297 mm)</option>
+                        <option value="letter">Letter (216 × 279 mm)</option>
+                        <option value="original">Original Image Size</option>
+                    </select>
                 </div>
 
                 <button class="btn" id="jpgToPdfBtn" style="width: 100%;">
@@ -270,7 +300,7 @@
         </div>
 
         <footer>
-            <p>PDF ↔ JPG Converter | Free Online Tool</p>
+            <p>High Quality PDF ↔ JPG Converter | Free Online Tool</p>
         </footer>
     </div>
 
@@ -297,6 +327,8 @@
         const jpgResults = document.getElementById('jpgResults');
         const jpgPreview = document.getElementById('jpgPreview');
         const downloadAllJpg = document.getElementById('downloadAllJpg');
+        const pdfQuality = document.getElementById('pdfQuality');
+        const qualityValue = document.getElementById('qualityValue');
 
         const jpgInput = document.getElementById('jpgInput');
         const selectJpgBtn = document.getElementById('selectJpgBtn');
@@ -305,6 +337,13 @@
         const jpgToPdfPreview = document.getElementById('jpgToPdfPreview');
         const pdfResult = document.getElementById('pdfResult');
         const downloadPdf = document.getElementById('downloadPdf');
+        const pdfSize = document.getElementById('pdfSize');
+
+        // Update quality display
+        pdfQuality.addEventListener('input', () => {
+            const qualities = ['Medium', 'High', 'Maximum'];
+            qualityValue.textContent = qualities[pdfQuality.value - 1];
+        });
 
         // PDF to JPG Functions
         selectPdfBtn.addEventListener('click', () => pdfInput.click());
@@ -365,7 +404,9 @@
                 const pdfData = await file.arrayBuffer();
                 const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
                 const page = await pdf.getPage(1);
-                const viewport = page.getViewport({ scale: 0.5 });
+                
+                // Set higher scale for better quality preview
+                const viewport = page.getViewport({ scale: 2.0 });
                 
                 const canvas = document.createElement('canvas');
                 const context = canvas.getContext('2d');
@@ -385,7 +426,7 @@
             }
         }
 
-        // PDF to JPG Conversion
+        // PDF to JPG Conversion with quality settings
         pdfToJpgBtn.addEventListener('click', async () => {
             if (!pdfInput.files.length) {
                 alert('Please select a PDF file first!');
@@ -405,27 +446,39 @@
                 const zip = new JSZip();
                 const imgFolder = zip.folder("extracted_images");
 
+                // Set quality based on slider
+                const qualitySettings = [
+                    { scale: 1.5, jpegQuality: 0.8 },  // Medium
+                    { scale: 2.0, jpegQuality: 0.9 },  // High
+                    { scale: 3.0, jpegQuality: 1.0 }   // Maximum
+                ];
+                const quality = qualitySettings[pdfQuality.value - 1];
+
                 for (let i = 1; i <= pdf.numPages; i++) {
                     const page = await pdf.getPage(i);
-                    const viewport = page.getViewport({ scale: 1.5 });
+                    const viewport = page.getViewport({ scale: quality.scale });
                     const canvas = document.createElement('canvas');
                     const context = canvas.getContext('2d');
                     canvas.height = viewport.height;
                     canvas.width = viewport.width;
 
+                    // Render with higher quality settings
                     await page.render({
                         canvasContext: context,
-                        viewport: viewport
+                        viewport: viewport,
+                        intent: 'print'
                     }).promise;
 
                     // Add to preview
-                    const imgData = canvas.toDataURL('image/jpeg');
+                    const imgData = canvas.toDataURL('image/jpeg', quality.jpegQuality);
                     const img = document.createElement('img');
                     img.src = imgData;
                     jpgPreview.appendChild(img);
 
-                    // Add to ZIP
-                    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.8));
+                    // Add to ZIP with higher quality
+                    const blob = await new Promise(resolve => 
+                        canvas.toBlob(resolve, 'image/jpeg', quality.jpegQuality)
+                    );
                     imgFolder.file(`page_${i}.jpg`, blob);
                 }
 
@@ -491,7 +544,7 @@
             });
         }
 
-        // JPG to PDF Conversion
+        // JPG to PDF Conversion with quality settings
         jpgToPdfBtn.addEventListener('click', async () => {
             if (!jpgInput.files.length) {
                 alert('Please select at least one image file!');
@@ -506,6 +559,14 @@
                 const files = jpgInput.files;
                 let isFirstImage = true;
 
+                // Get selected PDF size
+                const pageSizes = {
+                    'a4': { width: 210, height: 297, unit: 'mm' },
+                    'letter': { width: 216, height: 279, unit: 'mm' },
+                    'original': null
+                };
+                const selectedSize = pdfSize.value;
+
                 for (let i = 0; i < files.length; i++) {
                     const file = files[i];
                     await new Promise((resolve) => {
@@ -517,21 +578,31 @@
                                 isFirstImage = false;
                             }
                             
-                            const imgWidth = img.width;
-                            const imgHeight = img.height;
-                            const pageWidth = pdf.internal.pageSize.getWidth();
-                            const pageHeight = pdf.internal.pageSize.getHeight();
-                            
-                            // Calculate aspect ratio
-                            const ratio = Math.min((pageWidth - 20) / imgWidth, (pageHeight - 20) / imgHeight);
-                            const width = imgWidth * ratio;
-                            const height = imgHeight * ratio;
-                            
-                            // Center the image
-                            const x = (pageWidth - width) / 2;
-                            const y = (pageHeight - height) / 2;
-                            
-                            pdf.addImage(img, 'JPEG', x, y, width, height);
+                            if (selectedSize === 'original') {
+                                // Use original image dimensions (in pixels converted to mm)
+                                const width = img.width * 0.264583; // px to mm
+                                const height = img.height * 0.264583; // px to mm
+                                pdf.addPage([width, height]);
+                                pdf.addImage(img, 'JPEG', 0, 0, width, height, undefined, 'FAST');
+                            } else {
+                                // Use standard page size
+                                const pageWidth = pageSizes[selectedSize].width;
+                                const pageHeight = pageSizes[selectedSize].height;
+                                
+                                // Calculate aspect ratio
+                                const ratio = Math.min(
+                                    (pageWidth - 20) / (img.width * 0.264583), 
+                                    (pageHeight - 20) / (img.height * 0.264583)
+                                );
+                                const width = img.width * 0.264583 * ratio;
+                                const height = img.height * 0.264583 * ratio;
+                                
+                                // Center the image
+                                const x = (pageWidth - width) / 2;
+                                const y = (pageHeight - height) / 2;
+                                
+                                pdf.addImage(img, 'JPEG', x, y, width, height, undefined, 'FAST');
+                            }
                             resolve();
                         };
                         img.onerror = () => {
